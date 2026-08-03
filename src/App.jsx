@@ -5,6 +5,7 @@ import AccountPage from "./page/accountpage";
 import TasksPage from "./page/taskPage";
 import Projects from "./page/project";
 import CoursesPage from "./page/coursePage";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/Projects" element={<Projects/>} />
         <Route path="/TasksPage" element={<TasksPage/>} />
         <Route path="/CoursesPage" element={<CoursesPage/>} />
+        <Route path="*" element={<NotFound/>} />
+
       </Routes>
     </div>
   )
