@@ -11,6 +11,7 @@ import {
   FcSynchronize,
   FcTreeStructure,
 } from "react-icons/fc";
+import BottomNav from "../componentes/Bottomnav";
 
 function HomePage() {
   const username = "Vansh Verma";
@@ -199,7 +200,9 @@ function HomePage() {
           </div>
         </div>
       </div>
+      <BottomNav/>
     </div>
+
   );
 }
 

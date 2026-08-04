@@ -2,7 +2,6 @@ import { useState } from "react";
 import Navbar from "../componentes/navbar";
 import Sidebar from "../componentes/sidebar";
 import QUESTIONS from "../data/mcq";
- 
 import {
   IoLeafOutline,
   IoFlashOutline,
@@ -16,7 +15,44 @@ import {
   IoLayersOutline,
   IoTimerOutline,
   IoRibbonOutline,
+  IoSadOutline,
+  IoThumbsUpOutline,
+  IoRocketOutline,
 } from "react-icons/io5";
+import BottomNav from "../componentes/Bottomnav";
+
+const RESULT_TIERS = [
+  {
+    max: 40,
+    label: "Keep Practicing",
+    sub: "Revise the basics and give it another shot",
+    icon: IoSadOutline,
+    bg: "bg-gray-800",
+    border: "border-gray-700",
+    accent: "text-gray-300",
+    anim: "shake",
+  },
+  {
+    max: 75,
+    label: "Good Job!",
+    sub: "Solid understanding — a little more practice and you're set",
+    icon: IoThumbsUpOutline,
+    bg: "bg-blue-700",
+    border: "border-blue-600",
+    accent: "text-blue-200",
+    anim: "pop",
+  },
+  {
+    max: 101,
+    label: "Awesome!",
+    sub: "You nailed it — you're interview ready",
+    icon: IoRocketOutline,
+    bg: "bg-gradient-to-br from-amber-600 via-orange-600 to-rose-600",
+    border: "border-amber-500",
+    accent: "text-amber-100",
+    anim: "confetti",
+  },
+];
 
 const LEVELS = [
   { key: "easy", label: "Easy", desc: "Basics & fundamentals", icon: IoLeafOutline, bg: "bg-emerald-700", border: "border-emerald-600", accent: "text-emerald-300", barFrom: "from-emerald-400", barTo: "to-emerald-300" },
@@ -209,41 +245,83 @@ function InterviewQuestions() {
           )}
 
           {/* ---------- Result screen ---------- */}
-          {levelKey && finished && (
-            <div className="max-w-md">
-              <div className={`${level.bg} border ${level.border} rounded-2xl p-6 text-center`}>
-                <div className="w-14 h-14 mx-auto rounded-full bg-white/10 flex items-center justify-center">
-                  <level.icon className={`text-2xl ${level.accent}`} />
-                </div>
-                <h2 className="text-white text-xl font-semibold mt-4">
-                  {level.label} level complete!
-                </h2>
-                <p className="text-4xl font-bold text-white mt-3">
-                  {score}<span className="text-lg text-gray-200">/{questions.length}</span>
-                </p>
-                <p className={`text-sm mt-1 ${level.accent}`}>
-                  {Math.round((score / questions.length) * 100)}% correct
-                </p>
+          {levelKey && finished && (() => {
+            const percent = Math.round((score / questions.length) * 100);
+            const tier = RESULT_TIERS.find((t) => percent < t.max);
+            const TierIcon = tier.icon;
 
-                <div className="flex gap-3 mt-6">
-                  <button
-                    onClick={() => startLevel(levelKey)}
-                    className="flex-1 bg-white/10 hover:bg-white/20 text-white text-sm font-medium py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-colors"
+            return (
+              <div className="max-w-md">
+                <style>{`
+                  @keyframes popIn { 0% { transform: scale(0.4); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+                  @keyframes shakeIcon { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(-10deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-6deg); } 80% { transform: rotate(4deg); } }
+                  @keyframes confettiFall { 0% { transform: translateY(-10px) rotate(0deg); opacity: 1; } 100% { transform: translateY(140px) rotate(360deg); opacity: 0; } }
+                  @keyframes scorePop { 0% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
+                `}</style>
+
+                <div className={`${tier.bg} border ${tier.border} rounded-2xl p-6 text-center relative overflow-hidden`}>
+                  {tier.anim === "confetti" &&
+                    Array.from({ length: 14 }).map((_, i) => (
+                      <span
+                        key={i}
+                        className="absolute top-0 w-2 h-2 rounded-sm"
+                        style={{
+                          left: `${(i * 97) % 100}%`,
+                          background: ["#fde68a", "#fca5a5", "#fdba74", "#fff", "#fbcfe8"][i % 5],
+                          animation: `confettiFall ${1.2 + (i % 5) * 0.2}s ease-in ${(i % 6) * 0.15}s infinite`,
+                        }}
+                      />
+                    ))}
+
+                  <div
+                    className="w-14 h-14 mx-auto rounded-full bg-white/15 flex items-center justify-center relative"
+                    style={{
+                      animation:
+                        tier.anim === "shake"
+                          ? "popIn 0.5s ease-out, shakeIcon 0.6s ease-in-out 0.5s"
+                          : "popIn 0.5s ease-out",
+                    }}
                   >
-                    <IoRefreshOutline /> Retry
-                  </button>
-                  <button
-                    onClick={backToLevels}
-                    className="flex-1 bg-white text-gray-900 text-sm font-medium py-2.5 rounded-xl hover:bg-gray-100 transition-colors"
+                    <TierIcon className={`text-2xl ${tier.accent}`} />
+                  </div>
+
+                  <h2
+                    className="text-white text-xl font-bold mt-4"
+                    style={{ animation: "popIn 0.5s ease-out 0.1s both" }}
                   >
-                    Change Level
-                  </button>
+                    {tier.label}
+                  </h2>
+                  <p className={`text-xs sm:text-sm mt-1 ${tier.accent}`}>{tier.sub}</p>
+
+                  <p
+                    className="text-4xl font-bold text-white mt-4 relative"
+                    style={{ animation: "scorePop 0.5s ease-out 0.2s both" }}
+                  >
+                    {score}<span className="text-lg text-white/70">/{questions.length}</span>
+                  </p>
+                  <p className={`text-sm mt-1 ${tier.accent}`}>{percent}% correct</p>
+
+                  <div className="flex gap-3 mt-6 relative">
+                    <button
+                      onClick={() => startLevel(levelKey)}
+                      className="flex-1 bg-white/15 hover:bg-white/25 text-white text-sm font-medium py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                      <IoRefreshOutline /> Retry
+                    </button>
+                    <button
+                      onClick={backToLevels}
+                      className="flex-1 bg-white text-gray-900 text-sm font-medium py-2.5 rounded-xl hover:bg-gray-100 transition-colors"
+                    >
+                      Change Level
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
       </div>
+       <BottomNav/>
     </div>
   );
 }

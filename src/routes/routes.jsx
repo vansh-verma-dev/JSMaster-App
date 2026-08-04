@@ -3,6 +3,7 @@ import HomePage from "../pages/homepage";
 import PrivacyPolicy from "../pages/Privacypolicy";
 import InterviewQuestions from "../pages/Interviewquestions";
 import Profile from "../pages/profile&setting";
+import Projects from "../pages/project";
 
 function RoutesPages() {
     return (
@@ -10,8 +11,8 @@ function RoutesPages() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 {/* <Route path="/topics" element={<Topics />} />
-                <Route path="/task" element={<Task />} />
-                <Route path="/projects" element={<Projects />} /> */}
+                <Route path="/task" element={<Task />} />*/}
+                <Route path="/projects" element={<Projects />} /> 
                 <Route path="/profile" element={<Profile />} /> 
                 <Route path="/mcq" element={<InterviewQuestions />} />
                 <Route path="/privacypolicy" element={<PrivacyPolicy />} />

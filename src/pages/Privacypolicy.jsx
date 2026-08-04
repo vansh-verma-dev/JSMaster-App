@@ -9,6 +9,7 @@ import {
   IoMailOutline,
 } from "react-icons/io5";
 import Sidebar from "../componentes/sidebar";
+import BottomNav from "../componentes/Bottomnav";
 
 const sections = [
   {
@@ -138,6 +139,7 @@ function PrivacyPolicy() {
           </div>
         </div>
       </div>
+       <BottomNav/>
     </div>
   );
 }
