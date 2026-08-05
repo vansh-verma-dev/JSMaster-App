@@ -11,61 +11,54 @@ import {
   IoChevronForward,
   IoClose,
   IoTimerOutline,
-  IoRibbonOutline,
   IoSparklesOutline,
-  IoRocketOutline,
+  IoHardwareChipOutline,
+  IoTerminalOutline,
+  IoCheckmarkCircle
 } from "react-icons/io5";
 
-/* ---------------- Level config (mirrors the MCQ page's palette) ---------------- */
+/* ---------------- Level config (Purple Theme) ---------------- */
 
 const LEVELS = [
   {
     key: "easy",
     label: "Easy",
-    desc: "Basics & fundamentals",
     icon: IoLeafOutline,
-    bg: "bg-emerald-700",
-    border: "border-emerald-600",
-    accent: "text-emerald-300",
-    soft: "bg-emerald-50",
-    softText: "text-emerald-700",
-    softIcon: "text-emerald-600",
+    bgActive: "bg-purple-600 text-white shadow-purple-200 shadow-lg",
+    bgInactive: "bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100",
+    accent: "text-purple-600",
+    soft: "bg-purple-100",
+    softText: "text-purple-800",
   },
   {
     key: "medium",
     label: "Medium",
-    desc: "Intermediate concepts",
     icon: IoFlashOutline,
-    bg: "bg-blue-700",
-    border: "border-blue-600",
-    accent: "text-blue-300",
-    soft: "bg-blue-50",
-    softText: "text-blue-700",
-    softIcon: "text-blue-600",
+    bgActive: "bg-violet-600 text-white shadow-violet-200 shadow-lg",
+    bgInactive: "bg-violet-50 text-violet-700 border border-violet-200 hover:bg-violet-100",
+    accent: "text-violet-600",
+    soft: "bg-violet-100",
+    softText: "text-violet-800",
   },
   {
     key: "hard",
     label: "Hard",
-    desc: "Deep JS internals",
     icon: IoFlameOutline,
-    bg: "bg-amber-700",
-    border: "border-amber-600",
-    accent: "text-amber-300",
-    soft: "bg-amber-50",
-    softText: "text-amber-700",
-    softIcon: "text-amber-600",
+    bgActive: "bg-indigo-600 text-white shadow-indigo-200 shadow-lg",
+    bgInactive: "bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100",
+    accent: "text-indigo-600",
+    soft: "bg-indigo-100",
+    softText: "text-indigo-800",
   },
   {
     key: "pro",
     label: "Pro",
-    desc: "Expert-level & tricky",
     icon: IoTrophyOutline,
-    bg: "bg-rose-700",
-    border: "border-rose-600",
-    accent: "text-rose-300",
-    soft: "bg-rose-50",
-    softText: "text-rose-700",
-    softIcon: "text-rose-600",
+    bgActive: "bg-fuchsia-600 text-white shadow-fuchsia-200 shadow-lg",
+    bgInactive: "bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200 hover:bg-fuchsia-100",
+    accent: "text-fuchsia-600",
+    soft: "bg-fuchsia-100",
+    softText: "text-fuchsia-800",
   },
 ];
 
@@ -80,189 +73,202 @@ function TasksPage({ username = "Coder" }) {
   const totalXp = tasks.reduce((sum, t) => sum + t.xp, 0);
 
   return (
-    <div>
+    <div className="bg-slate-50 min-h-screen pb-20 sm:pb-0">
       <Navbar />
-      <div className="flex bg-white">
-        <Sidebar />
+      
+      <div className="flex mx-auto max-w-7xl">
+        <Sidebar className="hidden md:block" />
 
-        <div className="flex-1 p-4 sm:p-6 pt-5 min-h-[90vh]">
-          {/* ---------- Hero ---------- */}
-          <div className="bg-gradient-to-br from-purple-700 via-purple-600 to-violet-600 rounded-2xl p-5 sm:p-8 relative overflow-hidden">
-            <div className="absolute -right-6 -top-6 w-32 h-32 rounded-full bg-white/10" />
-            <div className="absolute right-16 bottom-[-30px] w-24 h-24 rounded-full bg-white/10" />
+        <div className="flex-1 p-4 sm:p-6 lg:px-8 w-full">
+          
+          {/* ---------- Sleek Hero Section (Purple Gradient) ---------- */}
+          <div className="bg-gradient-to-r from-purple-950 via-slate-900 to-indigo-950 rounded-3xl p-5 sm:p-6 relative overflow-hidden flex items-center justify-between shadow-lg shadow-purple-950/10">
+            {/* Abstract Background Elements */}
+            <div className="absolute top-[-50%] left-[-10%] w-40 h-40 bg-purple-500/30 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-[-20%] right-[10%] w-32 h-32 bg-fuchsia-500/20 rounded-full blur-2xl"></div>
 
-            <div className="relative flex items-center justify-between gap-4">
-              <div className="min-w-0">
-                <div className="flex items-center gap-1.5 text-purple-200 text-xs sm:text-sm font-medium">
-                  <IoSparklesOutline /> Task Bank
-                </div>
-                <h1 className="text-2xl sm:text-3xl font-semibold text-white mt-2">
-                  Welcome back, {username}
-                </h1>
-                <p className="text-purple-100 text-sm mt-1.5 max-w-sm">
-                  Real, buildable JavaScript projects — pick a level and start shipping.
-                </p>
-
-                <div className="flex flex-wrap gap-2.5 mt-5">
-                  <span className="flex items-center gap-1.5 bg-white/10 text-white text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full">
-                    <IoRibbonOutline /> {tasks.length} {level.label} tasks
-                  </span>
-                  <span className="flex items-center gap-1.5 bg-white/10 text-white text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full">
-                    <IoRocketOutline /> {totalXp} XP up for grabs
-                  </span>
-                </div>
+            <div className="relative z-10 max-w-[60%]">
+              <div className="flex items-center gap-1.5 text-purple-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">
+                <IoHardwareChipOutline size={14} /> Practical Projects
               </div>
-
-              <div className="relative shrink-0 hidden xs:block">
-                <div className="absolute inset-0 bg-white/20 blur-2xl rounded-full scale-90" />
-                <img
-                  src="https://i.pinimg.com/1200x/4a/ca/fe/4acafecd9b6e8bf88b2b80b971e338eb.jpg"
-                  alt="Coding illustration"
-                  className="relative w-[130px] sm:w-[190px] drop-shadow-xl"
-                />
+              <h1 className="text-xl sm:text-2xl font-bold text-white mb-1 leading-tight">
+                Ready to build, {username}?
+              </h1>
+              <p className="text-slate-300 text-xs sm:text-sm mb-4 line-clamp-2">
+                Level up your JS skills by shipping real-world features. Code, test, and master.
+              </p>
+              
+              <div className="flex gap-3">
+                <span className="flex items-center gap-1 bg-white/10 backdrop-blur-md border border-white/10 text-white text-[10px] sm:text-xs font-semibold px-2.5 py-1.5 rounded-lg">
+                   {tasks.length} Tasks
+                </span>
+                <span className="flex items-center gap-1 bg-white/10 backdrop-blur-md border border-white/10 text-white text-[10px] sm:text-xs font-semibold px-2.5 py-1.5 rounded-lg">
+                  <IoSparklesOutline className="text-yellow-400" /> {totalXp} XP
+                </span>
               </div>
+            </div>
+
+            {/* 2D Developer Illustration */}
+            <div className="relative z-10 w-28 sm:w-40 mr-2 sm:mr-8 drop-shadow-2xl">
+              <img
+                src="https://cdn3d.iconscout.com/3d/premium/thumb/web-developer-4506461-3738664.png"
+                alt="Coder"
+                className="w-full h-auto object-contain"
+              />
             </div>
           </div>
 
-          {/* ---------- Level picker ---------- */}
-          <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mt-8">
-            Choose your level
-          </h2>
-          <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
-            Tasks get progressively closer to real production work
-          </p>
-
-          <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {LEVELS.map((lvl) => {
-              const Icon = lvl.icon;
-              const isActive = lvl.key === activeLevel;
-              return (
-                <button
-                  key={lvl.key}
-                  onClick={() => setActiveLevel(lvl.key)}
-                  className={`text-left ${lvl.bg} border ${lvl.border} rounded-2xl p-4 sm:p-5 shadow-sm transition-all flex flex-col ${
-                    isActive
-                      ? "ring-2 ring-offset-2 ring-purple-500 -translate-y-0.5 shadow-md"
-                      : "opacity-80 hover:opacity-100 hover:-translate-y-0.5 hover:shadow-md"
-                  }`}
-                >
-                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                    <Icon className={`text-xl ${lvl.accent}`} />
-                  </div>
-                  <h3 className="text-white font-semibold text-base sm:text-lg mt-3">
+          {/* ---------- App-like Level Buttons (Pills) ---------- */}
+          <div className="mt-8">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg font-bold text-slate-800">Select Difficulty</h2>
+            </div>
+            
+            <div className="flex overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 gap-3 hide-scrollbar">
+              {LEVELS.map((lvl) => {
+                const Icon = lvl.icon;
+                const isActive = lvl.key === activeLevel;
+                return (
+                  <button
+                    key={lvl.key}
+                    onClick={() => setActiveLevel(lvl.key)}
+                    className={`flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-2xl font-semibold text-sm transition-all active:scale-95 ${
+                      isActive ? lvl.bgActive : lvl.bgInactive
+                    }`}
+                  >
+                    <Icon className="text-lg" />
                     {lvl.label}
-                  </h3>
-                  <p className="text-gray-200 text-[11px] sm:text-xs mt-1">{lvl.desc}</p>
-                  <span className={`mt-3 text-[11px] sm:text-xs font-medium ${lvl.accent}`}>
-                    {TASKS[lvl.key]?.length || 0} tasks
-                  </span>
-                </button>
-              );
-            })}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
-          {/* ---------- Task list ---------- */}
-          <div className="flex items-center justify-between mt-8 mb-3">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
-              {level.label} tasks
-            </h2>
-            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${level.soft} ${level.softText}`}>
-              {tasks.length} projects
-            </span>
-          </div>
-
-          <div className="flex flex-col gap-3 max-w-2xl">
-            {tasks.map((task) => (
-              <button
-                key={task.title}
-                onClick={() => setOpenTask(task)}
-                className="text-left bg-white border border-gray-200 rounded-2xl p-4 shadow-sm hover:shadow-md hover:border-purple-200 hover:-translate-y-0.5 transition-all flex items-center gap-4"
-              >
-                <div className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-xl ${level.soft}`}>
-                  {task.icon}
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <h3 className="font-semibold text-[15px] text-gray-900 truncate">
-                    {task.title}
-                  </h3>
-                  <p className="text-[13px] text-gray-500 leading-snug line-clamp-2 mt-0.5">
-                    {task.blurb}
-                  </p>
-                  <div className="flex items-center gap-2 mt-2.5">
-                    <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${level.soft} ${level.softText}`}>
-                      {level.label}
-                    </span>
-                    <span className="flex items-center gap-1 text-[11px] text-gray-400">
-                      <IoTrophyOutline size={12} /> {task.xp} XP
-                    </span>
-                    <span className="flex items-center gap-1 text-[11px] text-gray-400">
-                      <IoTimerOutline size={12} /> {task.time}
-                    </span>
+          {/* ---------- Task List ---------- */}
+          <div className="mt-6">
+            <div className="flex flex-col gap-3 max-w-3xl">
+              {tasks.map((task, i) => (
+                <button
+                  key={i}
+                  onClick={() => setOpenTask(task)}
+                  className="group text-left bg-white border border-slate-200/80 rounded-2xl p-4 transition-all hover:border-purple-300 hover:shadow-lg hover:shadow-purple-500/5 active:bg-slate-50 flex items-center gap-4"
+                >
+                  <div className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${level.soft} ${level.accent}`}>
+                    {task.icon}
                   </div>
-                </div>
 
-                <IoChevronForward className="shrink-0 text-gray-300" size={18} />
-              </button>
-            ))}
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-bold text-[15px] text-slate-800 truncate group-hover:text-purple-600 transition-colors">
+                      {task.title}
+                    </h3>
+                    <p className="text-[13px] text-slate-500 mt-0.5 truncate">
+                      {task.blurb}
+                    </p>
+                    <div className="flex items-center gap-3 mt-2.5">
+                      <span className="flex items-center gap-1 text-[11px] font-bold text-slate-400">
+                        <IoTimerOutline size={14} /> {task.time}
+                      </span>
+                      <span className="flex items-center gap-1 text-[11px] font-bold text-amber-500">
+                        <IoTrophyOutline size={14} /> {task.xp} XP
+                      </span>
+                    </div>
+                  </div>
 
-            {tasks.length === 0 && (
-              <p className="text-sm text-gray-400 py-10 text-center">
-                No tasks in this level yet.
-              </p>
-            )}
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-purple-50 transition-colors">
+                    <IoChevronForward className="text-slate-400 group-hover:text-purple-600" size={16} />
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ---------- Task detail bottom sheet ---------- */}
+      {/* ---------- Task Detail Bottom Sheet (Fixed 90vh height & inner scroll) ---------- */}
       {openTask && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center overflow-hidden">
           <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity"
             onClick={() => setOpenTask(null)}
           />
-          <div className="relative w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-6 pb-8 shadow-xl">
-            <div className="w-10 h-1 rounded-full bg-gray-200 mx-auto mb-5 sm:hidden" />
+          <div className="relative w-full sm:max-w-lg bg-white rounded-t-[32px] sm:rounded-[32px] p-6 sm:p-8 shadow-2xl animate-slide-up sm:animate-fade-in max-h-[90vh] flex flex-col">
+            
+            {/* Mobile drag handle */}
+            <div className="w-12 h-1.5 rounded-full bg-slate-200 mx-auto mb-6 shrink-0 sm:hidden" />
 
-            <div className="flex items-start justify-between gap-4 mb-4">
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl ${level.soft}`}>
-                {openTask.icon}
+            {/* Scrollable Content Container (Slider/Wrapper doesn't scroll, only this part does) */}
+            <div className="overflow-y-auto pr-1 hide-scrollbar flex-1">
+              <div className="flex justify-between items-start mb-6">
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-4xl shadow-inner ${level.soft} ${level.accent}`}>
+                  {openTask.icon}
+                </div>
+                <button
+                  onClick={() => setOpenTask(null)}
+                  className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 active:scale-95 transition-all"
+                >
+                  <IoClose size={20} />
+                </button>
               </div>
-              <button
-                onClick={() => setOpenTask(null)}
-                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors"
-              >
-                <IoClose size={16} />
+
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${level.soft} ${level.softText}`}>
+                  {level.label} Level
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md bg-amber-100 text-amber-800 flex items-center gap-1">
+                  <IoTrophyOutline /> {openTask.xp} XP
+                </span>
+              </div>
+
+              <h2 className="font-extrabold text-2xl text-slate-900 mb-2">{openTask.title}</h2>
+              <p className="text-[15px] text-slate-600 leading-relaxed mb-6">
+                {openTask.blurb}
+              </p>
+
+              {/* Core Concepts Used */}
+              <div className="mb-6">
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Concepts You'll Master</h3>
+                <div className="flex flex-wrap gap-2">
+                  {openTask.topics.map((t) => (
+                    <span key={t} className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-50 text-purple-700 flex items-center gap-1.5 border border-purple-100">
+                      <IoTerminalOutline className="text-purple-400" /> {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step-by-Step Guidance */}
+              <div className="mb-8">
+                <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Action Plan</h3>
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-start gap-3">
+                    <IoCheckmarkCircle className="text-purple-500 text-xl shrink-0 mt-0.5" />
+                    <p className="text-sm text-slate-600 font-medium">Setup the basic HTML & CSS structure</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <IoCheckmarkCircle className="text-purple-500 text-xl shrink-0 mt-0.5" />
+                    <p className="text-sm text-slate-600 font-medium">Implement core logic using <span className="text-slate-900 font-bold">{openTask.topics[0]}</span></p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <IoCheckmarkCircle className="text-purple-500 text-xl shrink-0 mt-0.5" />
+                    <p className="text-sm text-slate-600 font-medium">Handle edge cases and connect to the DOM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sticky Action Button at bottom */}
+            <div className="pt-4 mt-auto border-t border-slate-100 shrink-0">
+              <button className="w-full py-4 rounded-2xl font-bold text-[16px] text-white bg-purple-600 hover:bg-purple-700 shadow-xl shadow-purple-600/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                <IoTerminalOutline size={20} />
+                Start Coding Session
               </button>
             </div>
 
-            <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full inline-block mb-2 ${level.soft} ${level.softText}`}>
-              {level.label} · {openTask.xp} XP
-            </span>
-
-            <h2 className="font-bold text-xl text-gray-900 mb-2">{openTask.title}</h2>
-            <p className="text-[14px] text-gray-500 leading-relaxed mb-5">{openTask.blurb}</p>
-
-            <div className="flex flex-wrap gap-2 mb-6">
-              {openTask.topics.map((t) => (
-                <span
-                  key={t}
-                  className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-gray-50 border border-gray-200 text-gray-600"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <button className="w-full py-3.5 rounded-xl font-semibold text-[15px] text-white bg-purple-600 hover:bg-purple-700 transition-colors active:scale-[0.98]">
-              Start Task
-            </button>
           </div>
         </div>
       )}
 
-      <BottomNav />
+      <BottomNav className="block sm:hidden" />
     </div>
   );
 }

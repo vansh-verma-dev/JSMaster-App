@@ -9,7 +9,7 @@ import {
   IoHelpCircle,
   IoHelpCircleOutline,
   IoPersonCircle,
-  IoPersonCircleOutline,
+  IoCheckboxOutline,
 } from "react-icons/io5";
 
 const TABS = [
@@ -17,7 +17,7 @@ const TABS = [
   { path: "/topics", label: "Topics", icon: IoBookOutline, activeIcon: IoBook },
   { path: "/projects", label: "Projects", icon: IoRocketOutline, activeIcon: IoRocket },
   { path: "/mcq", label: "MCQ", icon: IoHelpCircleOutline, activeIcon: IoHelpCircle },
-  { path: "/profile", label: "Profile", icon: IoPersonCircleOutline, activeIcon: IoPersonCircle },
+  { path: "/task", label: "task", icon: IoCheckboxOutline, activeIcon: IoPersonCircle },
 ];
 
 function BottomNav() {
