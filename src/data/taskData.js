@@ -1,0 +1,143 @@
+const TASKS = {
+  easy: [
+    {
+      icon: "🕐",
+      title: "Live Digital Clock",
+      blurb: "Render a ticking clock using Date() and setInterval — build the update loop yourself.",
+      topics: ["Date", "setInterval", "DOM"],
+      xp: 60,
+      time: "25 min",
+    },
+    {
+      icon: "🔤",
+      title: "Live Character Counter",
+      blurb: "A textarea that counts characters, words and remaining limit as the user types.",
+      topics: ["Events", "Strings", "DOM"],
+      xp: 55,
+      time: "20 min",
+    },
+    {
+      icon: "🎨",
+      title: "Random Color Generator",
+      blurb: "Click a button to generate a random HEX color, update the background, and copy it to clipboard.",
+      topics: ["Math.random", "Clipboard API"],
+      xp: 65,
+      time: "25 min",
+    },
+    {
+      icon: "🧾",
+      title: "Tip & Split Calculator",
+      blurb: "Calculate tip amount and per-person split from a bill, with live input validation.",
+      topics: ["Forms", "Math", "Validation"],
+      xp: 70,
+      time: "30 min",
+    },
+  ],
+
+  medium: [
+    {
+      icon: "✅",
+      title: "Todo App with Persistence",
+      blurb: "Full CRUD todo list that survives page refresh using localStorage — add, edit, delete, mark done.",
+      topics: ["localStorage", "Array methods", "DOM"],
+      xp: 140,
+      time: "1 hr",
+    },
+    {
+      icon: "⛅",
+      title: "Weather Dashboard",
+      blurb: "Fetch live weather by city using a public API, handle loading & error states gracefully.",
+      topics: ["fetch", "async/await", "JSON"],
+      xp: 160,
+      time: "1.5 hr",
+    },
+    {
+      icon: "🧠",
+      title: "Timed Quiz App",
+      blurb: "Multi-question quiz with a countdown timer per question, live score, and a results screen.",
+      topics: ["Objects", "setTimeout", "State"],
+      xp: 150,
+      time: "1.5 hr",
+    },
+    {
+      icon: "💸",
+      title: "Expense Tracker",
+      blurb: "Add income/expenses and compute running balance, category totals using reduce & filter.",
+      topics: ["reduce", "filter", "map"],
+      xp: 155,
+      time: "1.5 hr",
+    },
+  ],
+
+  hard: [
+    {
+      icon: "📋",
+      title: "Drag & Drop Kanban Board",
+      blurb: "Trello-style board — drag cards between columns using the native Drag & Drop API, persist order.",
+      topics: ["Drag & Drop API", "Closures", "localStorage"],
+      xp: 260,
+      time: "3 hr",
+    },
+    {
+      icon: "🎬",
+      title: "Movie Search with Debounce",
+      blurb: "Live-search a movie API as the user types, debounced, with pagination and skeleton loaders.",
+      topics: ["Debounce", "fetch", "Pagination"],
+      xp: 240,
+      time: "2.5 hr",
+    },
+    {
+      icon: "💬",
+      title: "Chat UI with Mock Sockets",
+      blurb: "Simulate real-time messaging using an event emitter — typing indicators, message queueing.",
+      topics: ["Event-driven JS", "Async queues"],
+      xp: 280,
+      time: "3 hr",
+    },
+    {
+      icon: "🍳",
+      title: "Recipe Finder + Filters",
+      blurb: "Search recipes, filter by multiple tags/diet at once, combine two API endpoints cleanly.",
+      topics: ["Complex state", "Promise.all"],
+      xp: 250,
+      time: "2.5 hr",
+    },
+  ],
+
+  pro: [
+    {
+      icon: "🛒",
+      title: "E-commerce Cart Engine",
+      blurb: "Cart logic with quantity limits, coupon stacking rules, tax calc, and persisted checkout state.",
+      topics: ["State machines", "Edge cases", "localStorage"],
+      xp: 480,
+      time: "5+ hr",
+    },
+    {
+      icon: "📝",
+      title: "Realtime Collaborative Notepad",
+      blurb: "Multiple 'users' editing one doc — handle conflicting edits and out-of-order updates.",
+      topics: ["WebSocket sim", "Conflict resolution"],
+      xp: 520,
+      time: "6 hr",
+    },
+    {
+      icon: "🧩",
+      title: "Build a Mini Virtual DOM",
+      blurb: "Write a tiny diffing engine from scratch that patches only what changed in the real DOM.",
+      topics: ["Recursion", "DOM diffing"],
+      xp: 600,
+      time: "8+ hr",
+    },
+    {
+      icon: "📡",
+      title: "Rate-Limited API Dashboard",
+      blurb: "Queue and throttle outgoing requests, cache responses, retry on failure with backoff.",
+      topics: ["Async queues", "Caching", "Retry logic"],
+      xp: 550,
+      time: "6 hr",
+    },
+  ],
+};
+
+export default TASKS;

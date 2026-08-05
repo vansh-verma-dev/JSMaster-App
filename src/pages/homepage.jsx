@@ -110,59 +110,149 @@ function HomePage() {
 
         <div className="flex-1 p-4 sm:p-6 pt-5 min-h-[90vh]">
           {/* Greeting */}
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">
-              Welcome back, {username}
-            </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              Let's continue your JavaScript learning journey
-            </p>
-          </div>
+       {/* ================= HERO SECTION ================= */}
+
+<div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-700 via-purple-700 to-indigo-800 p-8 lg:p-12">
+
+  {/* Background Blur */}
+  <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-violet-400/30 blur-3xl"></div>
+  <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-pink-400/20 blur-3xl"></div>
+
+  <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
+
+    {/* LEFT */}
+
+    <div>
+
+      <span className="inline-flex items-center rounded-full bg-white/20 px-4 py-2 text-sm text-white backdrop-blur-md">
+        Welcome Back 👋
+      </span>
+
+      <h1 className="mt-6 text-4xl lg:text-6xl font-extrabold leading-tight text-white">
+        Hi, {username}
+      </h1>
+
+      <p className="mt-4 max-w-xl text-lg text-violet-100">
+        Continue your JavaScript journey by solving real-world coding
+        challenges, building projects and preparing for interviews.
+      </p>
+
+      <div className="mt-8 flex flex-wrap gap-4">
+
+        <button className="rounded-2xl bg-white px-7 py-4 font-semibold text-violet-700 transition hover:scale-105">
+          Continue Learning
+        </button>
+
+        <button className="rounded-2xl border border-white/30 bg-white/10 px-7 py-4 font-semibold text-white backdrop-blur-lg transition hover:bg-white/20">
+          Explore Roadmap
+        </button>
+
+      </div>
+
+    </div>
+
+    {/* RIGHT */}
+
+    <div className="flex justify-center">
+
+      <div className="relative">
+
+        <img
+          src="https://ouch-cdn2.icons8.com/Q8Qzw6C4OQv4L9wF7l2F4M1P0eGqG5JQnIYt6F7rVkg/rs:fit:512:512/czM6Ly9pY29uczgvbWQvMDAwMDAwL2NvZGluZy5wbmc.png"
+          alt=""
+          className="w-80 drop-shadow-2xl"
+        />
+
+        <div className="absolute -top-5 left-0 rounded-2xl bg-white p-4 shadow-xl">
+          <p className="text-xs text-gray-500">Current Level</p>
+          <h3 className="text-xl font-bold text-violet-700">
+            Beginner
+          </h3>
+        </div>
+
+        <div className="absolute bottom-0 -right-5 rounded-2xl bg-white p-4 shadow-xl">
+          <p className="text-xs text-gray-500">XP Earned</p>
+          <h3 className="text-xl font-bold text-violet-700">
+            245 XP
+          </h3>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
           {/* Stat cards: always 2/row on mobile, 4/row from lg up */}
-          <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {stats.map(({ label, value, total, sub, icon: Icon, cardBg, cardBorder, accent, link, bar }) => (
-              <div
-                key={label}
-                className={`${cardBg} border ${cardBorder} rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col`}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <p className="text-xs sm:text-sm font-medium text-gray-300 leading-tight">
-                    {label}
-                  </p>
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-full bg-white/10 flex items-center justify-center">
-                    <Icon className="text-lg sm:text-xl" />
-                  </div>
-                </div>
+    {/* ================= CONTINUE LEARNING ================= */}
 
-                <div className="mt-2">
-                  <h2 className="text-xl sm:text-2xl font-bold text-white">
-                    {value}
-                    {total && <span className="text-sm text-gray-400">{total}</span>}
-                  </h2>
-                  <p className="text-[11px] sm:text-xs text-gray-400">{sub}</p>
-                </div>
+<div className="mt-8 grid lg:grid-cols-3 gap-6">
 
-                {bar !== undefined && (
-                  <div className="w-full h-1.5 bg-white/10 rounded-full mt-2 overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-purple-400 to-violet-300 rounded-full"
-                      style={{ width: `${bar}%` }}
-                    />
-                  </div>
-                )}
+  <div className="lg:col-span-2 rounded-3xl bg-white p-6 shadow-lg border">
 
-                {link && (
-                  <button
-                    className={`mt-2 text-[11px] sm:text-xs font-medium ${accent} flex items-center gap-1 hover:gap-1.5 transition-all self-start`}
-                  >
-                    {link} <IoArrowForward />
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
+    <div className="flex justify-between items-center">
 
+      <div>
+
+        <p className="text-gray-500">
+          Continue Learning
+        </p>
+
+        <h2 className="text-2xl font-bold mt-2">
+          JavaScript Arrays
+        </h2>
+
+      </div>
+
+      <button className="rounded-xl bg-violet-600 px-5 py-3 text-white">
+        Continue
+      </button>
+
+    </div>
+
+    <div className="mt-6 h-3 rounded-full bg-gray-200">
+
+      <div
+        className="h-3 rounded-full bg-gradient-to-r from-violet-500 to-purple-600"
+        style={{ width: "72%" }}
+      />
+
+    </div>
+
+    <div className="mt-3 flex justify-between text-sm text-gray-500">
+
+      <span>72% Completed</span>
+
+      <span>15 min left</span>
+
+    </div>
+
+  </div>
+
+  <div className="rounded-3xl bg-gradient-to-br from-orange-400 to-pink-500 p-6 text-white shadow-xl">
+
+    <p className="opacity-80">
+      Today's Challenge
+    </p>
+
+    <h2 className="mt-2 text-2xl font-bold">
+      Login Validation
+    </h2>
+
+    <p className="mt-3">
+      Solve today's coding challenge and earn
+      <span className="font-bold"> 20 XP</span>
+    </p>
+
+    <button className="mt-6 rounded-xl bg-white px-5 py-3 font-semibold text-orange-500">
+      Start Challenge
+    </button>
+
+  </div>
+
+</div>
           {/* Topics section - real-world application focus */}
           <div className="mt-8">
             <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
@@ -200,7 +290,7 @@ function HomePage() {
           </div>
         </div>
       </div>
-      <BottomNav/>
+      <BottomNav />
     </div>
 
   );
