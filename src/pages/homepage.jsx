@@ -1,298 +1,334 @@
 import Navbar from "../componentes/navbar";
 import Sidebar from "../componentes/sidebar";
-import { IoArrowForward } from "react-icons/io5";
-import {
-  FcStatistics,
-  FcReadingEbook,
-  FcFaq,
-  FcAlarmClock,
-  FcWorkflow,
-  FcProcess,
-  FcSynchronize,
-  FcTreeStructure,
-} from "react-icons/fc";
 import BottomNav from "../componentes/Bottomnav";
+import { 
+  IoArrowForward, 
+  IoFlame, 
+  IoSparkles, 
+  IoCodeSlash, 
+  IoLayers, 
+  IoCheckmarkDoneCircle, 
+  IoHelpCircle, 
+  IoTerminal,
+  IoRocket,
+  IoJournalOutline,
+  IoBriefcaseOutline,
+  IoConstructOutline
+} from "react-icons/io5";
+ 
 
 function HomePage() {
   const username = "Vansh Verma";
-  const progress = 20;
-  const userTopics = 33;
-  const userQuestions = 55;
   const userStreak = 7;
 
+  // Main feature navigation shortcuts / pages preview
+  const platformSections = [
+    {
+      title: "JS Core Topics",
+      desc: "Master closures, async/await, DOM, and array methods with deep code examples.",
+      icon: IoCodeSlash,
+      badge: "Core Learning",
+      count: "80+ Topics",
+      bg: "bg-gradient-to-br from-teal-500 to-emerald-600",
+      lightBg: "bg-teal-50",
+      textAccent: "text-teal-700",
+      border: "border-teal-200",
+      shadow: "shadow-teal-500/15",
+    },
+    {
+      title: "Interview MCQs",
+      desc: "Test your skills with easy to pro level multiple-choice questions & instant scoring.",
+      icon: IoHelpCircle,
+      badge: "Prep & Quiz",
+      count: "100 Questions",
+      bg: "bg-gradient-to-br from-purple-600 to-indigo-600",
+      lightBg: "bg-purple-50",
+      textAccent: "text-purple-700",
+      border: "border-purple-200",
+      shadow: "shadow-purple-500/15",
+    },
+    {
+      title: "Projects & Builds",
+      desc: "Explore high-end web applications like Nova Trip, Memora Books, and e-commerce stores.",
+      icon: IoRocket,
+      badge: "Real World",
+      count: "5+ Showcase",
+      bg: "bg-gradient-to-br from-blue-600 to-cyan-600",
+      lightBg: "bg-blue-50",
+      textAccent: "text-blue-700",
+      border: "border-blue-200",
+      shadow: "shadow-blue-500/15",
+    },
+    {
+      title: "Daily Tasks & Practice",
+      desc: "Stay productive by keeping track of your daily coding tasks, goals, and revision logs.",
+      icon: IoCheckmarkDoneCircle,
+      badge: "Productivity",
+      count: "Active Tracker",
+      bg: "bg-gradient-to-br from-amber-500 to-orange-600",
+      lightBg: "bg-amber-50",
+      textAccent: "text-amber-700",
+      border: "border-amber-200",
+      shadow: "shadow-amber-500/15",
+    },
+  ];
+
+  // Quick Stats cards with distinct color themes
   const stats = [
     {
-      label: "Progress",
-      value: `${progress}%`,
-      sub: "Keep going",
-      icon: FcStatistics,
-      cardBg: "bg-purple-900",
-      cardBorder: "border-purple-800",
-      accent: "text-purple-300",
-      link: null,
-      bar: progress,
+      label: "Overall Progress",
+      value: "20%",
+      sub: "Keep pushing forward",
+      icon: IoLayers,
+      bg: "bg-fuchsia-50",
+      border: "border-fuchsia-200",
+      text: "text-fuchsia-700",
+      bar: 20,
     },
     {
-      label: "Topics Completed",
-      value: userTopics,
-      total: "/80",
-      sub: "Keep going",
-      icon: FcReadingEbook,
-      cardBg: "bg-blue-900",
-      cardBorder: "border-blue-800",
-      accent: "text-blue-300",
-      link: "See all topics",
+      label: "Topics Mastered",
+      value: "33 / 80",
+      sub: "Solid foundation built",
+      icon: IoJournalOutline,
+      bg: "bg-indigo-50",
+      border: "border-indigo-200",
+      text: "text-indigo-700",
     },
     {
-      label: "Interview Questions",
-      value: userQuestions,
-      total: "/100",
-      sub: "Keep going",
-      icon: FcFaq,
-      cardBg: "bg-amber-900",
-      cardBorder: "border-amber-800",
-      accent: "text-amber-300",
-      link: "See all MCQs",
+      label: "MCQs Solved",
+      value: "55 / 100",
+      sub: "Interview readiness rising",
+      icon: IoTerminal,
+      bg: "bg-cyan-50",
+      border: "border-cyan-200",
+      text: "text-cyan-700",
     },
     {
       label: "Day Streak",
-      value: userStreak,
-      total: " days",
-      sub: "Don't break it!",
-      icon: FcAlarmClock,
-      cardBg: "bg-rose-900",
-      cardBorder: "border-rose-800",
-      accent: "text-rose-300",
-      link: null,
+      value: `${userStreak} Days`,
+      sub: "Consistency is key",
+      icon: IoFlame,
+      bg: "bg-rose-50",
+      border: "border-rose-200",
+      text: "text-rose-700",
     },
   ];
 
-  const topics = [
+  // Featured Projects list for the new section
+  const featuredProjects = [
     {
-      label: "Arrays & Loops",
-      desc: "Used to render lists, tables & feeds in every app",
-      icon: FcWorkflow,
-      cardBg: "bg-teal-900",
-      cardBorder: "border-teal-800",
-      accent: "text-teal-300",
+      name: "Nova Trip",
+      tag: "Travel Platform",
+      desc: "High-end luxury travel web interface featuring destination guides and bookings.",
+      accent: "border-blue-200 bg-blue-50/50 text-blue-700"
     },
     {
-      label: "Functions & Closures",
-      desc: "Powers reusable logic & private state in your code",
-      icon: FcProcess,
-      cardBg: "bg-indigo-900",
-      cardBorder: "border-indigo-800",
-      accent: "text-indigo-300",
+      name: "Memora Books",
+      tag: "E-Commerce Startup",
+      desc: "Customized photo album ordering platform for weddings, birthdays and family memories.",
+      accent: "border-purple-200 bg-purple-50/50 text-purple-700"
     },
     {
-      label: "Promises & Async/Await",
-      desc: "Fetching APIs, loading data without freezing the UI",
-      icon: FcSynchronize,
-      cardBg: "bg-cyan-900",
-      cardBorder: "border-cyan-800",
-      accent: "text-cyan-300",
-    },
-    {
-      label: "DOM Manipulation",
-      desc: "Updating the page live — clicks, forms, animations",
-      icon: FcTreeStructure,
-      cardBg: "bg-emerald-900",
-      cardBorder: "border-emerald-800",
-      accent: "text-emerald-300",
-    },
+      name: "Apex Coder Hub",
+      tag: "Content Creator Platform",
+      desc: "Coding tutorials and resources repository built for YouTube and Instagram audience.",
+      accent: "border-emerald-200 bg-emerald-50/50 text-emerald-700"
+    }
   ];
 
   return (
-    <div>
+    <div className="bg-slate-50 min-h-screen pb-20 sm:pb-0">
       <Navbar />
-      <div className="flex bg-white">
-        <Sidebar />
+      
+      {/* Container holding sidebar on left edge */}
+      <div className="flex w-full">
+        <Sidebar className="hidden md:block shrink-0" />
 
-        <div className="flex-1 p-4 sm:p-6 pt-5 min-h-[90vh]">
-          {/* Greeting */}
-       {/* ================= HERO SECTION ================= */}
+        {/* Main Home Dashboard Content */}
+        <div className="flex-1 p-4 sm:p-6 lg:p-8 w-full h-[90vh] overflow-hidden  overflow-y-scroll">
+        
+          {/* IMPROVED HERO SECTION (Text Left, Image Right strictly on all screens, Simple image with no rounded/no shadow) */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200 border border-slate-200 flex flex-row items-center justify-between gap-4 sm:gap-8">
+            <div className="flex-1">
+              <div className="inline-flex items-center gap-1.5 bg-purple-50 border border-purple-200 text-purple-700 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full mb-3 shadow-sm">
+                <IoSparkles className="text-purple-600" /> Full Stack Developer Dashboard
+              </div>
+              <h1 className="text-xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Welcome back, {username}
+              </h1>
+              <p className="text-slate-600 text-xs sm:text-sm mt-2 leading-relaxed font-medium">
+                Your ultimate developer hub for mastering JavaScript, tackling interview MCQs, managing tasks, and building real-world projects.
+              </p>
 
-<div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-700 via-purple-700 to-indigo-800 p-8 lg:p-12">
+              <div className="mt-4 sm:mt-6 flex flex-wrap items-center gap-2 sm:gap-3">
+                <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm px-4 sm:px-6 py-2.5 sm:py-3 rounded-2xl shadow-lg shadow-purple-600/25 transition-all flex items-center gap-2 active:scale-95">
+                  Explore Hub <IoArrowForward />
+                </button>
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-amber-50 border border-amber-200 px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl text-amber-800 text-xs font-bold shadow-sm">
+                  <IoFlame className="text-amber-600 text-base animate-pulse" />
+                  <span>{userStreak} Days Streak</span>
+                </div>
+              </div>
+            </div>
 
-  {/* Background Blur */}
-  <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-violet-400/30 blur-3xl"></div>
-  <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-pink-400/20 blur-3xl"></div>
+            {/* Simple image: No rounded corners, no shadow, placed cleanly on the right */}
+            <div className="w-28 sm:w-48 shrink-0">
+              <img
+                src="https://i.pinimg.com/1200x/4a/ca/fe/4acafecd9b6e8bf88b2b80b971e338eb.jpg"
+                alt="Dashboard illustration"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
 
-  <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
-
-    {/* LEFT */}
-
-    <div>
-
-      <span className="inline-flex items-center rounded-full bg-white/20 px-4 py-2 text-sm text-white backdrop-blur-md">
-        Welcome Back 👋
-      </span>
-
-      <h1 className="mt-6 text-4xl lg:text-6xl font-extrabold leading-tight text-white">
-        Hi, {username}
-      </h1>
-
-      <p className="mt-4 max-w-xl text-lg text-violet-100">
-        Continue your JavaScript journey by solving real-world coding
-        challenges, building projects and preparing for interviews.
-      </p>
-
-      <div className="mt-8 flex flex-wrap gap-4">
-
-        <button className="rounded-2xl bg-white px-7 py-4 font-semibold text-violet-700 transition hover:scale-105">
-          Continue Learning
-        </button>
-
-        <button className="rounded-2xl border border-white/30 bg-white/10 px-7 py-4 font-semibold text-white backdrop-blur-lg transition hover:bg-white/20">
-          Explore Roadmap
-        </button>
-
-      </div>
-
-    </div>
-
-    {/* RIGHT */}
-
-    <div className="flex justify-center">
-
-      <div className="relative">
-
-        <img
-          src="https://ouch-cdn2.icons8.com/Q8Qzw6C4OQv4L9wF7l2F4M1P0eGqG5JQnIYt6F7rVkg/rs:fit:512:512/czM6Ly9pY29uczgvbWQvMDAwMDAwL2NvZGluZy5wbmc.png"
-          alt=""
-          className="w-80 drop-shadow-2xl"
-        />
-
-        <div className="absolute -top-5 left-0 rounded-2xl bg-white p-4 shadow-xl">
-          <p className="text-xs text-gray-500">Current Level</p>
-          <h3 className="text-xl font-bold text-violet-700">
-            Beginner
-          </h3>
-        </div>
-
-        <div className="absolute bottom-0 -right-5 rounded-2xl bg-white p-4 shadow-xl">
-          <p className="text-xs text-gray-500">XP Earned</p>
-          <h3 className="text-xl font-bold text-violet-700">
-            245 XP
-          </h3>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-          {/* Stat cards: always 2/row on mobile, 4/row from lg up */}
-    {/* ================= CONTINUE LEARNING ================= */}
-
-<div className="mt-8 grid lg:grid-cols-3 gap-6">
-
-  <div className="lg:col-span-2 rounded-3xl bg-white p-6 shadow-lg border">
-
-    <div className="flex justify-between items-center">
-
-      <div>
-
-        <p className="text-gray-500">
-          Continue Learning
-        </p>
-
-        <h2 className="text-2xl font-bold mt-2">
-          JavaScript Arrays
-        </h2>
-
-      </div>
-
-      <button className="rounded-xl bg-violet-600 px-5 py-3 text-white">
-        Continue
-      </button>
-
-    </div>
-
-    <div className="mt-6 h-3 rounded-full bg-gray-200">
-
-      <div
-        className="h-3 rounded-full bg-gradient-to-r from-violet-500 to-purple-600"
-        style={{ width: "72%" }}
-      />
-
-    </div>
-
-    <div className="mt-3 flex justify-between text-sm text-gray-500">
-
-      <span>72% Completed</span>
-
-      <span>15 min left</span>
-
-    </div>
-
-  </div>
-
-  <div className="rounded-3xl bg-gradient-to-br from-orange-400 to-pink-500 p-6 text-white shadow-xl">
-
-    <p className="opacity-80">
-      Today's Challenge
-    </p>
-
-    <h2 className="mt-2 text-2xl font-bold">
-      Login Validation
-    </h2>
-
-    <p className="mt-3">
-      Solve today's coding challenge and earn
-      <span className="font-bold"> 20 XP</span>
-    </p>
-
-    <button className="mt-6 rounded-xl bg-white px-5 py-3 font-semibold text-orange-500">
-      Start Challenge
-    </button>
-
-  </div>
-
-</div>
-          {/* Topics section - real-world application focus */}
+          {/* QUICK STATS SECTION (Colorful modern cards) */}
           <div className="mt-8">
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
-              Topics you'll actually use
+            <h3 className="text-lg font-bold text-slate-900 mb-4">
+              Your Performance Overview
             </h3>
-            <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
-              Where each concept shows up in real applications
-            </p>
-
-            <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              {topics.map(({ label, desc, icon: Icon, cardBg, cardBorder, accent }) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              {stats.map(({ label, value, sub, icon: Icon, bg, border, text, bar }) => (
                 <div
                   key={label}
-                  className={`${cardBg} border ${cardBorder} rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow flex flex-col cursor-pointer`}
+                  className={`${bg} border ${border} rounded-3xl p-4 sm:p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between`}
                 >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center">
-                    <Icon className="text-lg sm:text-xl" />
+                  <div>
+                    <div className="flex items-start justify-between gap-2">
+                      <p className={`text-xs sm:text-sm font-bold ${text} leading-tight`}>
+                        {label}
+                      </p>
+                      <div className={`w-10 h-10 shrink-0 rounded-2xl bg-white shadow-sm flex items-center justify-center ${text}`}>
+                        <Icon className="text-xl" />
+                      </div>
+                    </div>
+
+                    <div className="mt-3">
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        {value}
+                      </h2>
+                      <p className="text-[11px] sm:text-xs font-medium text-slate-600 mt-0.5">{sub}</p>
+                    </div>
                   </div>
 
-                  <h4 className="text-sm sm:text-base font-semibold text-white mt-3">
-                    {label}
-                  </h4>
-                  <p className="text-[11px] sm:text-xs text-gray-300 mt-1 leading-snug">
-                    {desc}
-                  </p>
+                  {bar !== undefined && (
+                    <div className="w-full h-2 bg-white/80 rounded-full mt-4 overflow-hidden border border-fuchsia-200">
+                      <div
+                        className="h-full bg-gradient-to-r from-fuchsia-600 to-purple-600 rounded-full transition-all duration-500"
+                        style={{ width: `${bar}%` }}
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
-                  <button
-                    className={`mt-3 text-[11px] sm:text-xs font-medium ${accent} flex items-center gap-1 hover:gap-1.5 transition-all self-start`}
-                  >
-                    Start learning <IoArrowForward />
+          {/* MAIN PLATFORM SECTIONS (Showcasing all app pages: Topics, MCQ, Projects, Tasks) */}
+          <div className="mt-10">
+            <div className="mb-5">
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                Explore Platform Modules
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                Jump straight into any section of your portfolio and learning suite
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {platformSections.map(({ title, desc, icon: Icon, badge, count, bg, lightBg, textAccent, border, shadow }) => (
+                <div
+                  key={title}
+                  className={`bg-white border ${border} rounded-3xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group cursor-pointer relative overflow-hidden`}
+                >
+                  {/* Decorative background accent blob */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full -z-10 group-hover:scale-125 transition-transform duration-500"></div>
+
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <div className={`w-14 h-14 rounded-2xl ${bg} flex items-center justify-center text-white shadow-lg ${shadow}`}>
+                        <Icon className="text-2xl" />
+                      </div>
+                      <span className={`text-xs font-bold px-3 py-1 rounded-full ${lightBg} ${textAccent} border ${border}`}>
+                        {badge}
+                      </span>
+                    </div>
+
+                    <h4 className="text-lg font-bold text-slate-900 mt-5 group-hover:text-purple-600 transition-colors">
+                      {title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                      {desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <span className="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-lg">
+                      {count}
+                    </span>
+                    <span className={`text-xs font-bold ${textAccent} flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform`}>
+                      Open Module <IoArrowForward />
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* NEW SECTION: FEATURED PORTFOLIO PROJECTS */}
+          <div className="mt-10">
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                  Featured Key Projects
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Production-ready web applications built with React, Tailwind & JavaScript
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {featuredProjects.map(({ name, tag, desc, accent }) => (
+                <div key={name} className="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 font-bold">
+                        <IoBriefcaseOutline className="text-lg" />
+                      </span>
+                      <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${accent}`}>
+                        {tag}
+                      </span>
+                    </div>
+                    <h4 className="text-base font-bold text-slate-900">{name}</h4>
+                    <p className="text-xs text-slate-600 mt-2 leading-relaxed">{desc}</p>
+                  </div>
+                  <button className="mt-5 text-xs font-bold text-purple-600 flex items-center gap-1 hover:gap-1.5 transition-all">
+                    View Project <IoArrowForward />
                   </button>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* ADDITIONAL FEATURE BANNER (Developer Productivity Pro-tip) */}
+          <div className="mt-10 bg-gradient-to-r from-slate-900 via-purple-950 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border border-purple-900/50">
+            <div className="relative z-10 max-w-2xl">
+              <span className="bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold px-3.5 py-1.5 rounded-full inline-block mb-3">
+                💡 Developer Routine
+              </span>
+              <h4 className="text-xl sm:text-2xl font-extrabold tracking-tight">
+                Consistency Builds Exceptional Developers
+              </h4>
+              <p className="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed">
+                "Small daily progress adds up to massive engineering milestones. Complete your daily code challenges and keep building production-grade UI applications!"
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
-      <BottomNav />
+      <BottomNav className="block sm:hidden" />
     </div>
-
   );
 }
 

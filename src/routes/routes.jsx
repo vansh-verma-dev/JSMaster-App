@@ -5,14 +5,14 @@ import InterviewQuestions from "../pages/Interviewquestions";
 import Profile from "../pages/profile&setting";
 import Projects from "../pages/project";
 import TaskPage from "../pages/taskpage";
-
+import TopicsPage from "../pages/topics";
 function RoutesPages() {
     return (
         <>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                {/* <Route path="/topics" element={<Topics />} />*/}
-                <Route path="/task" element={<TaskPage/>} />
+                <Route path="/Topic" element={<TopicsPage/>} />
+                <Route path="/task" element={<TaskPage />} />
                 <Route path="/projects" element={<Projects />} /> 
                 <Route path="/profile" element={<Profile />} /> 
                 <Route path="/mcq" element={<InterviewQuestions />} />

@@ -27,9 +27,9 @@ const RESULT_TIERS = [
     label: "Keep Practicing",
     sub: "Revise the basics and give it another shot",
     icon: IoSadOutline,
-    bg: "bg-gray-800",
-    border: "border-gray-700",
-    accent: "text-gray-300",
+    bg: "bg-slate-900",
+    border: "border-slate-800",
+    accent: "text-purple-300",
     anim: "shake",
   },
   {
@@ -37,9 +37,9 @@ const RESULT_TIERS = [
     label: "Good Job!",
     sub: "Solid understanding — a little more practice and you're set",
     icon: IoThumbsUpOutline,
-    bg: "bg-blue-700",
-    border: "border-blue-600",
-    accent: "text-blue-200",
+    bg: "bg-purple-900",
+    border: "border-purple-700",
+    accent: "text-purple-200",
     anim: "pop",
   },
   {
@@ -47,18 +47,18 @@ const RESULT_TIERS = [
     label: "Awesome!",
     sub: "You nailed it — you're interview ready",
     icon: IoRocketOutline,
-    bg: "bg-gradient-to-br from-amber-600 via-orange-600 to-rose-600",
-    border: "border-amber-500",
-    accent: "text-amber-100",
+    bg: "bg-gradient-to-br from-purple-700 via-indigo-700 to-fuchsia-700",
+    border: "border-purple-500",
+    accent: "text-fuchsia-100",
     anim: "confetti",
   },
 ];
 
 const LEVELS = [
-  { key: "easy", label: "Easy", desc: "Basics & fundamentals", icon: IoLeafOutline, bg: "bg-emerald-700", border: "border-emerald-600", accent: "text-emerald-300", barFrom: "from-emerald-400", barTo: "to-emerald-300" },
-  { key: "medium", label: "Medium", desc: "Intermediate concepts", icon: IoFlashOutline, bg: "bg-blue-700", border: "border-blue-600", accent: "text-blue-300", barFrom: "from-blue-400", barTo: "to-blue-300" },
-  { key: "hard", label: "Hard", desc: "Deep JS internals", icon: IoFlameOutline, bg: "bg-amber-700", border: "border-amber-600", accent: "text-amber-300", barFrom: "from-amber-400", barTo: "to-amber-300" },
-  { key: "pro", label: "Pro", desc: "Expert-level & tricky", icon: IoTrophyOutline, bg: "bg-rose-700", border: "border-rose-600", accent: "text-rose-300", barFrom: "from-rose-400", barTo: "to-rose-300" },
+  { key: "easy", label: "Easy", desc: "Basics & fundamentals", icon: IoLeafOutline, bg: "bg-purple-600", border: "border-purple-500", accent: "text-purple-100", barFrom: "from-purple-400", barTo: "to-purple-300" },
+  { key: "medium", label: "Medium", desc: "Intermediate concepts", icon: IoFlashOutline, bg: "bg-violet-600", border: "border-violet-500", accent: "text-violet-100", barFrom: "from-violet-400", barTo: "to-violet-300" },
+  { key: "hard", label: "Hard", desc: "Deep JS internals", icon: IoFlameOutline, bg: "bg-indigo-600", border: "border-indigo-500", accent: "text-indigo-100", barFrom: "from-indigo-400", barTo: "to-indigo-300" },
+  { key: "pro", label: "Pro", desc: "Expert-level & tricky", icon: IoTrophyOutline, bg: "bg-fuchsia-600", border: "border-fuchsia-500", accent: "text-fuchsia-100", barFrom: "from-fuchsia-400", barTo: "to-fuchsia-300" },
 ];
 
 const HERO_STATS = [
@@ -106,64 +106,80 @@ function InterviewQuestions() {
   const backToLevels = () => setLevelKey(null);
 
   return (
-    <div>
+    <div className="bg-slate-50 min-h-screen pb-20 sm:pb-0">
       <Navbar />
-      <div className="flex bg-white">
-        <Sidebar />
+      
+      {/* Outer wrapper without extra margin/padding so sidebar sticks to the left edge */}
+      <div className="flex w-full">
+        <Sidebar className="hidden md:block shrink-0" />
 
-        <div className="flex-1 p-4 sm:p-6 pt-5 min-h-[90vh]">
+        {/* Main content area takes the remaining space */}
+        <div className="flex-1 p-4 sm:p-6 lg:px-8 w-full min-h-[90vh]">
           {/* ---------- Level selection screen ---------- */}
           {!levelKey && (
             <>
-              {/* Hero banner */}
-              <div className="bg-gradient-to-br from-purple-700 via-purple-600 to-violet-600 rounded-2xl p-5 sm:p-8 relative overflow-hidden">
-                <div className="absolute -right-6 -top-6 w-32 h-32 rounded-full bg-white/10" />
-                <div className="absolute right-10 bottom-[-30px] w-24 h-24 rounded-full bg-white/10" />
+              {/* Hero banner with 2D Illustration */}
+              <div className="bg-gradient-to-r from-purple-950 via-slate-900 to-indigo-950 rounded-3xl p-5 sm:p-8 relative overflow-hidden flex items-center justify-between shadow-lg shadow-purple-950/10">
+                <div className="absolute top-[-50%] left-[-10%] w-40 h-40 bg-purple-500/30 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-[-20%] right-[10%] w-32 h-32 bg-fuchsia-500/20 rounded-full blur-2xl"></div>
 
-                <div className="relative flex items-center gap-2 text-purple-200 text-xs sm:text-sm font-medium">
-                  <IoSparklesOutline /> Interview Prep
+                <div className="relative z-10 max-w-[60%]">
+                  <div className="flex items-center gap-1.5 text-purple-300 text-xs sm:text-sm font-semibold tracking-wider mb-2">
+                    <IoSparklesOutline /> Interview Prep
+                  </div>
+                  <h1 className="text-xl sm:text-3xl font-bold text-white mb-1 leading-tight">
+                    Ace Your JavaScript Interview
+                  </h1>
+                  <p className="text-slate-300 text-xs sm:text-sm mb-4 line-clamp-2">
+                    Pick a difficulty, test your knowledge with MCQs, and see exactly where you stand — instantly.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2.5">
+                    {HERO_STATS.map(({ icon: Icon, label }) => (
+                      <span
+                        key={label}
+                        className="flex items-center gap-1.5 bg-white/10 backdrop-blur-md border border-white/10 text-white text-[10px] sm:text-xs font-semibold px-2.5 py-1.5 rounded-lg"
+                      >
+                        <Icon className="text-purple-300 text-sm" /> {label}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <h1 className="relative text-2xl sm:text-3xl font-bold text-white mt-2">
-                  Ace Your JavaScript Interview
-                </h1>
-                <p className="relative text-purple-100 text-sm mt-1.5 max-w-md">
-                  Pick a difficulty, answer 25 MCQs, and see exactly where you stand — instantly.
-                </p>
 
-                <div className="relative flex flex-wrap gap-2.5 mt-5">
-                  {HERO_STATS.map(({ icon: Icon, label }) => (
-                    <span
-                      key={label}
-                      className="flex items-center gap-1.5 bg-white/10 text-white text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full"
-                    >
-                      <Icon className="text-sm" /> {label}
-                    </span>
-                  ))}
+                {/* 2D Developer / Quiz Illustration */}
+                <div className="relative z-10 w-28 sm:w-40 mr-2 sm:mr-8 drop-shadow-2xl">
+                  <img
+                    src="https://cdn3d.iconscout.com/3d/premium/thumb/online-exam-5334139-4445585.png"
+                    alt="Quiz Prep"
+                    className="w-full h-auto object-contain"
+                  />
                 </div>
               </div>
 
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mt-8">
-                Choose your level
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
-                Each level has 25 MCQs and gives you a live score
-              </p>
+              <div className="mt-8 mb-4">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-800">
+                  Choose your level
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                  Each level has multiple MCQs to sharpen your core concepts
+                </p>
+              </div>
 
-              <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {LEVELS.map(({ key, label, desc, icon: Icon, bg, border, accent }) => (
                   <button
                     key={key}
                     onClick={() => startLevel(key)}
-                    className={`text-left ${bg} border ${border} rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col`}
+                    className={`text-left ${bg} border ${border} rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col group text-white`}
                   >
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                      <Icon className={`text-xl ${accent}`} />
+                    <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+                      <Icon className={`text-2xl text-white`} />
                     </div>
-                    <h3 className="text-white font-semibold text-base sm:text-lg mt-3">
+                    <h3 className="font-bold text-lg mt-4 group-hover:scale-[1.02] transition-transform">
                       {label}
                     </h3>
-                    <p className="text-gray-200 text-[11px] sm:text-xs mt-1">{desc}</p>
-                    <span className={`mt-3 text-[11px] sm:text-xs font-medium ${accent}`}>
+                    <p className="text-slate-100 text-xs mt-1 opacity-90">{desc}</p>
+                    <span className="mt-4 text-xs font-bold text-white/90 bg-black/20 w-max px-2.5 py-1 rounded-lg">
                       25 Questions
                     </span>
                   </button>
@@ -174,59 +190,59 @@ function InterviewQuestions() {
 
           {/* ---------- Quiz screen ---------- */}
           {levelKey && !finished && current && (
-            <div className="max-w-2xl">
-              <div className="flex items-center justify-between">
+            <div className="max-w-2xl mx-auto">
+              <div className="flex items-center justify-between mb-4">
                 <button
                   onClick={backToLevels}
-                  className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-800 transition-colors"
+                  className="flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-purple-600 transition-colors bg-white px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm"
                 >
-                  <IoArrowBack /> Levels
+                  <IoArrowBack /> Back to Levels
                 </button>
-                <span className={`text-xs sm:text-sm font-semibold ${level.accent} ${level.bg} px-3 py-1 rounded-full`}>
-                  {level.label}
+                <span className={`text-xs sm:text-sm font-bold text-white ${level.bg} px-3.5 py-1.5 rounded-xl shadow-sm`}>
+                  {level.label} Level
                 </span>
               </div>
 
-              {/* Progress */}
-              <div className="mt-4">
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-1.5">
+              {/* Progress Bar */}
+              <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm mb-4">
+                <div className="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2">
                   <span>Question {index + 1} of {questions.length}</span>
-                  <span>Score: {score}</span>
+                  <span className="text-purple-600 font-bold">Score: {score}</span>
                 </div>
-                <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
                   <div
-                    className={`h-full bg-gradient-to-r ${level.barFrom} ${level.barTo} rounded-full transition-all`}
+                    className={`h-full bg-gradient-to-r ${level.barFrom} ${level.barTo} rounded-full transition-all duration-300`}
                     style={{ width: `${((index + 1) / questions.length) * 100}%` }}
                   />
                 </div>
               </div>
 
               {/* Question card */}
-              <div className="mt-6 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-                <h2 className="text-base sm:text-lg font-medium text-gray-900">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 leading-snug">
                   {current.q}
                 </h2>
 
-                <div className="mt-4 flex flex-col gap-2.5">
+                <div className="mt-5 flex flex-col gap-3">
                   {current.o.map((opt, i) => {
                     const isSelected = selected === i;
                     const isCorrect = i === current.a;
-                    let style = "border-gray-200 text-gray-700 hover:border-purple-300 hover:bg-purple-50";
+                    let style = "border-slate-200 text-slate-700 bg-slate-50/50 hover:border-purple-300 hover:bg-purple-50/50";
                     if (selected !== null) {
-                      if (isCorrect) style = "border-emerald-500 bg-emerald-50 text-emerald-700";
-                      else if (isSelected) style = "border-red-500 bg-red-50 text-red-700";
-                      else style = "border-gray-200 text-gray-400";
+                      if (isCorrect) style = "border-emerald-500 bg-emerald-50 text-emerald-800 font-semibold shadow-sm";
+                      else if (isSelected) style = "border-rose-500 bg-rose-50 text-rose-800 font-semibold shadow-sm";
+                      else style = "border-slate-200 text-slate-400 opacity-60";
                     }
                     return (
                       <button
                         key={i}
                         onClick={() => pickOption(i)}
                         disabled={selected !== null}
-                        className={`text-left border rounded-xl px-4 py-3 text-sm flex items-center justify-between transition-colors ${style}`}
+                        className={`text-left border-2 rounded-2xl px-4 py-3.5 text-sm flex items-center justify-between transition-all ${style}`}
                       >
-                        {opt}
-                        {selected !== null && isCorrect && <IoCheckmarkCircle className="text-lg text-emerald-600 shrink-0" />}
-                        {selected !== null && isSelected && !isCorrect && <IoCloseCircle className="text-lg text-red-600 shrink-0" />}
+                        <span>{opt}</span>
+                        {selected !== null && isCorrect && <IoCheckmarkCircle className="text-xl text-emerald-600 shrink-0" />}
+                        {selected !== null && isSelected && !isCorrect && <IoCloseCircle className="text-xl text-rose-600 shrink-0" />}
                       </button>
                     );
                   })}
@@ -235,7 +251,7 @@ function InterviewQuestions() {
                 {selected !== null && (
                   <button
                     onClick={nextQuestion}
-                    className="mt-5 w-full bg-purple-600 hover:bg-purple-700 text-white font-medium text-sm py-2.5 rounded-xl transition-colors"
+                    className="mt-6 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-base py-3.5 rounded-2xl shadow-lg shadow-purple-600/20 transition-all active:scale-[0.98]"
                   >
                     {index + 1 < questions.length ? "Next Question" : "Finish Quiz"}
                   </button>
@@ -251,7 +267,7 @@ function InterviewQuestions() {
             const TierIcon = tier.icon;
 
             return (
-              <div className="max-w-md">
+              <div className="max-w-md mx-auto">
                 <style>{`
                   @keyframes popIn { 0% { transform: scale(0.4); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
                   @keyframes shakeIcon { 0%, 100% { transform: rotate(0deg); } 20% { transform: rotate(-10deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-6deg); } 80% { transform: rotate(4deg); } }
@@ -259,7 +275,7 @@ function InterviewQuestions() {
                   @keyframes scorePop { 0% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
                 `}</style>
 
-                <div className={`${tier.bg} border ${tier.border} rounded-2xl p-6 text-center relative overflow-hidden`}>
+                <div className={`${tier.bg} border ${tier.border} rounded-3xl p-8 text-center relative overflow-hidden shadow-2xl`}>
                   {tier.anim === "confetti" &&
                     Array.from({ length: 14 }).map((_, i) => (
                       <span
@@ -267,14 +283,14 @@ function InterviewQuestions() {
                         className="absolute top-0 w-2 h-2 rounded-sm"
                         style={{
                           left: `${(i * 97) % 100}%`,
-                          background: ["#fde68a", "#fca5a5", "#fdba74", "#fff", "#fbcfe8"][i % 5],
+                          background: ["#e879f9", "#c084fc", "#818cf8", "#fff", "#f472b6"][i % 5],
                           animation: `confettiFall ${1.2 + (i % 5) * 0.2}s ease-in ${(i % 6) * 0.15}s infinite`,
                         }}
                       />
                     ))}
 
                   <div
-                    className="w-14 h-14 mx-auto rounded-full bg-white/15 flex items-center justify-center relative"
+                    className="w-16 h-16 mx-auto rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center relative shadow-inner"
                     style={{
                       animation:
                         tier.anim === "shake"
@@ -282,35 +298,35 @@ function InterviewQuestions() {
                           : "popIn 0.5s ease-out",
                     }}
                   >
-                    <TierIcon className={`text-2xl ${tier.accent}`} />
+                    <TierIcon className={`text-3xl text-white`} />
                   </div>
 
                   <h2
-                    className="text-white text-xl font-bold mt-4"
+                    className="text-white text-2xl font-bold mt-4"
                     style={{ animation: "popIn 0.5s ease-out 0.1s both" }}
                   >
                     {tier.label}
                   </h2>
-                  <p className={`text-xs sm:text-sm mt-1 ${tier.accent}`}>{tier.sub}</p>
+                  <p className={`text-xs sm:text-sm mt-1 opacity-90 ${tier.accent}`}>{tier.sub}</p>
 
                   <p
-                    className="text-4xl font-bold text-white mt-4 relative"
+                    className="text-5xl font-extrabold text-white mt-5 relative"
                     style={{ animation: "scorePop 0.5s ease-out 0.2s both" }}
                   >
-                    {score}<span className="text-lg text-white/70">/{questions.length}</span>
+                    {score}<span className="text-xl text-white/60">/{questions.length}</span>
                   </p>
-                  <p className={`text-sm mt-1 ${tier.accent}`}>{percent}% correct</p>
+                  <p className={`text-sm font-semibold mt-1 opacity-90 ${tier.accent}`}>{percent}% correct</p>
 
-                  <div className="flex gap-3 mt-6 relative">
+                  <div className="flex gap-3 mt-8 relative">
                     <button
                       onClick={() => startLevel(levelKey)}
-                      className="flex-1 bg-white/15 hover:bg-white/25 text-white text-sm font-medium py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-colors"
+                      className="flex-1 bg-white/15 hover:bg-white/25 text-white text-sm font-bold py-3 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 border border-white/10"
                     >
-                      <IoRefreshOutline /> Retry
+                      <IoRefreshOutline /> Retry Quiz
                     </button>
                     <button
                       onClick={backToLevels}
-                      className="flex-1 bg-white text-gray-900 text-sm font-medium py-2.5 rounded-xl hover:bg-gray-100 transition-colors"
+                      className="flex-1 bg-white text-slate-900 text-sm font-bold py-3 rounded-2xl hover:bg-slate-100 transition-all active:scale-95 shadow-lg"
                     >
                       Change Level
                     </button>
@@ -318,10 +334,10 @@ function InterviewQuestions() {
                 </div>
               </div>
             );
-          })()}
+          })}
         </div>
       </div>
-       <BottomNav/>
+      <BottomNav className="block sm:hidden" />
     </div>
   );
 }
