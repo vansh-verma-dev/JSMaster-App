@@ -21,7 +21,7 @@ import TermsPage from "./pages/TermsPage";
 
 export default function JSMasterApp() {
   useGoogleFonts();
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
   const t = { ...THEME[mode], mode };
 
   const [page, setPage] = useState("home");

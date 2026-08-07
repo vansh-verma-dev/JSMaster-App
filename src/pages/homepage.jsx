@@ -4,40 +4,13 @@ import { TOPICS } from "../data/topics";
 import { cardColor } from "../data/theme";
 import MiniStat from "../components/MiniStat";
 import HeroIllustration from "../components/illustrations/HeroIllustration";
+import HeroSection from "../components/HeroSection";
 
 export default function HomePage({ t, go, overallPct, doneUnits, totalUnits, completedTopics }) {
   return (
     <div className="space-y-14">
       {/* HERO */}
-      <section className="grid md:grid-cols-2 gap-8 items-center pt-4">
-        <div>
-          <span
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium mb-4"
-            style={{ backgroundColor: t.accentSoft, color: t.accent }}
-          >
-            <Sparkles size={12} /> A roadmap, not just a course
-          </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-bold leading-[1.1] tracking-tight" style={{ color: t.text }}>
-            Learn JavaScript.<br />
-            Ship real code.<br />
-            <span style={{ color: t.accent }}>Crack the interview.</span>
-          </h1>
-          <p className="mt-4 text-base leading-relaxed max-w-md" style={{ color: t.textMuted }}>
-            Topic by topic, task by task. JSMaster gives you a structured path, hands-on
-            problems, interview MCQs and real projects — all in one place.
-          </p>
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <button onClick={() => go("topics")} className="px-5 py-3 rounded-xl font-semibold text-sm flex items-center gap-2" style={{ backgroundColor: t.accent, color: "#141414" }}>
-              Start Learning <ArrowRight size={16} />
-            </button>
-            <button onClick={() => go("projects")} className="px-5 py-3 rounded-xl font-semibold text-sm border" style={{ borderColor: t.border, color: t.text }}>
-              Browse Projects
-            </button>
-          </div>
-        </div>
-
-        <HeroIllustration t={t} />
-      </section>
+     <HeroSection/>
 
       {/* DASHBOARD / PROGRESS */}
       <section>

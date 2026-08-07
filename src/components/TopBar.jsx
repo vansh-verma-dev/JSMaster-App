@@ -46,7 +46,7 @@ export default function TopBar({ t, mode, setMode, page, go, user, accountOpen, 
             style={{ backgroundColor: t.surface, border: `1px solid ${t.border}`, color: t.text }}
             aria-label="Toggle theme"
           >
-            {mode === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            {mode === "light" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
 
           <div className="relative">
