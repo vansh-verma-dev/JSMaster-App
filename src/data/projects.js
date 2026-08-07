@@ -1,0 +1,47 @@
+export const PROJECTS = [
+  {
+    id: "calculator",
+    title: "JS Calculator",
+    level: "Beginner",
+    tech: "HTML, CSS, JavaScript",
+    desc: "A working calculator with keyboard support and a real evaluation engine.",
+    steps: [
+      "Build the layout: a display div and a grid of number/operator buttons.",
+      "Keep calculator state (current input, previous value, selected operator) in a small state object instead of the DOM.",
+      "Wire each button's click event to update state and re-render the display.",
+      "Implement operator precedence or keep it simple with immediate evaluation, your call.",
+      "Add keyboard support by listening for keydown events on the document.",
+      "Handle edge cases: divide by zero, chained operators, clearing state.",
+    ],
+  },
+  {
+    id: "todo",
+    title: "Todo App",
+    level: "Beginner",
+    tech: "React, Tailwind",
+    desc: "Add, complete and delete tasks, with filters for active/completed.",
+    steps: [
+      "Set up a React project and model a todo as { id, text, done }.",
+      "Build an input + 'Add' button that pushes a new todo into state.",
+      "Render the list, with a checkbox to toggle `done` and a button to delete.",
+      "Add filter tabs: All / Active / Completed, driven by a filter state value.",
+      "Persist todos so a refresh doesn't lose data (localStorage in your own project).",
+      "Polish: empty state, item count, 'clear completed' button.",
+    ],
+  },
+  {
+    id: "weather",
+    title: "Weather App (uses an API)",
+    level: "Intermediate",
+    tech: "React, fetch, a weather API",
+    desc: "Search a city and show live weather using async/await and error handling.",
+    steps: [
+      "Sign up for a free weather API key and read its docs for the endpoint shape.",
+      "Build a search input and a submit handler that calls an async fetchWeather(city) function.",
+      "Use async/await with try/catch to handle loading, success and error states.",
+      "Render temperature, condition and an icon based on the response.",
+      "Debounce the search input if you add live suggestions.",
+      "Handle a wrong city name gracefully with a friendly error message.",
+    ],
+  },
+];
