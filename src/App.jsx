@@ -7,7 +7,6 @@ import { TASKS } from "./data/tasks";
 
 import TopBar from "./components/TopBar";
 import BottomNav from "./components/BottomNav";
-import HomePage from "./pages/HomePage";
 import TopicsList from "./pages/TopicsList";
 import TopicDetail from "./pages/TopicDetail";
 import TasksPage from "./pages/TasksPage";
@@ -17,6 +16,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import ProfilePage from "./pages/ProfilePage";
 import AuthPage from "./pages/AuthPage";
 import TermsPage from "./pages/TermsPage";
+import HomePage from "./pages/homepage";
 
 export default function JSMasterApp() {
   useGoogleFonts();
