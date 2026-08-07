@@ -7,7 +7,6 @@ import { TASKS } from "./data/tasks";
 
 import TopBar from "./components/TopBar";
 import BottomNav from "./components/BottomNav";
-
 import HomePage from "./pages/HomePage";
 import TopicsList from "./pages/TopicsList";
 import TopicDetail from "./pages/TopicDetail";
