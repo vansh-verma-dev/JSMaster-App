@@ -12,6 +12,7 @@ import tasks from "../data/tasks";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 import AdSpace from "../components/AdSpace";
+import BottomNavbar from "../components/bottomNavbar";
 
 const LEVELS = ["All", "Intermediate", "Hard", "Advanced"];
 
@@ -377,7 +378,7 @@ function TasksPage() {
         </main>
       </div>
     </div>
- 
+ <BottomNavbar/>
    </>
   );
 }

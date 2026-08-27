@@ -14,6 +14,7 @@ import interviewQuestions from "../data/interviewQA";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 import AdSpace from "../components/AdSpace";
+import BottomNavbar from "../components/bottomNavbar";
 
 
 const CATEGORIES = ["All", ...new Set(interviewQuestions.map((q) => q.category))];
@@ -409,7 +410,7 @@ function InterviewQuestionsPage() {
       </div>
     </div>
 
- 
+ <BottomNavbar/>
    </>
   );
 }
