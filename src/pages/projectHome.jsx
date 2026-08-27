@@ -5,7 +5,7 @@ import AdSpace from "../components/AdSpace";
 import projectsData from "../data/projects";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
-import BottomNavigation from "../components/bottomNav";
+import BottomNavigation from "../components/BottomNav";
 
 function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState(projectsData[0]);
