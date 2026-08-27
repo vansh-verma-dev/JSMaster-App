@@ -8,6 +8,7 @@ function HomePage() {
         <div>
             <Navbar />
             <MobileTopBar />
+            <h1>Heyy i am home Page</h1>
             <BottomNavigation />
         </div>
     )
