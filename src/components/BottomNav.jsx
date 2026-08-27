@@ -40,7 +40,7 @@ const NavItems = [
   {
     id: "mcq",
     label: "MCQ",
-    path: "/mcq",
+    path: "/interviewQs",
     icon: FaRegQuestionCircle,
     activeIcon: FaQuestionCircle,
   },

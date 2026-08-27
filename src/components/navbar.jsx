@@ -16,9 +16,9 @@ function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const Navlinks = [
-    { name: "Home", path: "/home" },
+    { name: "Home", path: "/" },
     { name: "Topics", path: "/topics" },
-    { name: "Task", path: "/task" },
+    { name: "Task", path: "/tasks" },
     { name: "Interview Questions", path: "/interviewQs" },
     { name: "project", path: "/project" },
   ];

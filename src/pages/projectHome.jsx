@@ -7,7 +7,7 @@ import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 import BottomNavigation from "../components/bottomNav";
 
-function Projects() {
+function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState(projectsData[0]);
 
   const currentIndex = projectsData.findIndex(
@@ -261,4 +261,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default ProjectsPage;
