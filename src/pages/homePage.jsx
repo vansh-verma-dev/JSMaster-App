@@ -1,4 +1,4 @@
-import BottomNavigation from "../components/bottomNav";
+import BottomNavigation from "../components/BottomNav";
 import MobileTopBar from "../components/mobileTopBar";
 import Navbar from "../components/navbar";
 
