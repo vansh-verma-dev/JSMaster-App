@@ -4,7 +4,6 @@ import projectsData from "../data/projects";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 import AdSpace from "../components/AdSpace";
-import BottomNavigation from "../components/bottomNav";
 
 
 function ProjectsPage() {
@@ -255,7 +254,7 @@ function ProjectsPage() {
       </div>
     </div>
 
-   <BottomNavigation/>
+ 
 
    </>
   );

@@ -9,10 +9,9 @@ import {
 } from "react-icons/fa";
 
 import tasks from "../data/tasks";
-import AdSpace from "../components/AdSpace";
-import BottomNavigation from "../components/bottomNav";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
+import AdSpace from "../components/AdSpace";
 
 const LEVELS = ["All", "Intermediate", "Hard", "Advanced"];
 
@@ -378,7 +377,7 @@ function TasksPage() {
         </main>
       </div>
     </div>
-    <BottomNavigation/>
+ 
    </>
   );
 }

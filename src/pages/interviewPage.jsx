@@ -11,10 +11,10 @@ import {
 } from "react-icons/fa";
 
 import interviewQuestions from "../data/interviewQA";
-import AdSpace from "../components/AdSpace";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
-import BottomNavigation from "../components/bottomNav";
+import AdSpace from "../components/AdSpace";
+
 
 const CATEGORIES = ["All", ...new Set(interviewQuestions.map((q) => q.category))];
 const TYPES = [
@@ -409,7 +409,7 @@ function InterviewQuestionsPage() {
       </div>
     </div>
 
-   <BottomNavigation/>
+ 
    </>
   );
 }
