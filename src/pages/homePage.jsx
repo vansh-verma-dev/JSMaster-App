@@ -7,6 +7,7 @@ function HomePage(){
         <div>
             <Navbar/>
             <BottomNavigation/>
+            <h1>hey i am jsMaster App</h1>
             <MobileTopBar/>
         </div>
     )
