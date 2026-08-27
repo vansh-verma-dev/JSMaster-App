@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
-import AdSpace from "../components/AdSpace";
+import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa"; 
 import projectsData from "../data/projects";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
-import BottomNavigation from "../components/BottomNav";
+import AdSpace from "../components/AdSpace";
+import BottomNavigation from "../components/bottomNav";
+
 
 function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState(projectsData[0]);

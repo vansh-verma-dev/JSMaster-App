@@ -10,7 +10,7 @@ import {
 
 import tasks from "../data/tasks";
 import AdSpace from "../components/AdSpace";
-import BottomNavigation from "../components/BottomNav";
+import BottomNavigation from "../components/bottomNav";
 import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 
