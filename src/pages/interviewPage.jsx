@@ -15,6 +15,7 @@ import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 import AdSpace from "../components/AdSpace";
 import BottomNavbar from "../components/bottomNavbar";
+import HeroSection from "../components/heroSection";
 
 
 const CATEGORIES = ["All", ...new Set(interviewQuestions.map((q) => q.category))];
@@ -207,7 +208,7 @@ function InterviewQuestionsPage() {
  <div className="min-h-[calc(100vh-68px)] bg-slate-50 pb-10">
       <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
         <div className="mb-5">
-          <AdSpace />
+          <HeroSection/>
         </div>
 
         {/* HEADER */}

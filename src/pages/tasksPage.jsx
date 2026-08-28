@@ -13,6 +13,7 @@ import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 import AdSpace from "../components/AdSpace";
 import BottomNavbar from "../components/bottomNavbar";
+import HeroSection from "../components/heroSection";
 
 const LEVELS = ["All", "Intermediate", "Hard", "Advanced"];
 
@@ -163,16 +164,13 @@ function TasksPage() {
             </div>
           )}
         </aside>
-
-        {/* ================================================= */}
-        {/* MAIN */}
-        {/* ================================================= */}
+ 
 
         <main className="min-w-0 flex-1">
           <div className="px-4 py-6 sm:px-6 lg:px-10 lg:py-9">
             <div className="mx-auto max-w-5xl">
               <div className="mb-6">
-                <AdSpace />
+               <HeroSection/>
               </div>
 
               {/* PAGE HEADER */}

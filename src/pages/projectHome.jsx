@@ -5,6 +5,7 @@ import Navbar from "../components/navbar";
 import MobileTopBar from "../components/mobileTopBar";
 import AdSpace from "../components/AdSpace";
 import BottomNavbar from "../components/bottomNavbar";
+import HeroSection from "../components/heroSection";
 
 
 function ProjectsPage() {
@@ -117,7 +118,7 @@ function ProjectsPage() {
             <div className="mx-auto max-w-3xl">
 
               <div className="mb-10">
-                <AdSpace />
+                <HeroSection/>
               </div>
 
               <section className="relative">
