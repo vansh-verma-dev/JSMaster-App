@@ -1,12 +1,12 @@
  function HeroSection() {
     return (
-        <section className="w-full overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm">
+        <section className=" sm:hidden block w-full overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm">
             <div className="flex min-h-[180px] items-center justify-between gap-3 p-4">
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                     <span className="inline-flex items-center rounded-full bg-purple-50 px-3 py-1 text-[11px] font-semibold text-purple-600">
-                        ⚡ Learn by Coding
+                        Learn by Coding
                     </span>
 
                     <h1 className="mt-3 text-[20px] leading-[1.2] font-bold tracking-tight text-gray-900">
@@ -39,7 +39,7 @@
                     {/* Floating Badge */}
                     <div className="absolute -bottom-2 -left-3 rounded-lg border border-gray-100 bg-white px-2.5 py-1.5 shadow-md">
                         <p className="text-[10px] font-semibold text-gray-800">
-                            🔥 Keep Coding
+                             Keep Coding
                         </p>
                     </div>
                 </div>
