@@ -248,7 +248,7 @@ function TasksPage() {
                   <div className="mt-8">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="rounded-full bg-gradient-to-r from-violet-100 to-violet-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-violet-700 border border-violet-200">
-                        📚 Practice Tasks
+                        Practice Tasks
                       </span>
                       <span className="text-xs text-slate-400 font-medium">{tasks.length} Total</span>
                     </div>
@@ -410,7 +410,7 @@ function TaskCard({ task }) {
 
   return (
     <Link
-      to={`/tasks/${task.id}`}
+      
       className="group relative block rounded-2xl border border-slate-200 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-violet-300 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
     >
       {/* Gradient Overlay on Hover */}
@@ -464,16 +464,6 @@ function TaskCard({ task }) {
                 <span className="font-medium">With Hint</span>
               </div>
             </div>
-          </div>
-
-          {/* Right: CTA Button */}
-          <div className="flex flex-col items-end justify-between gap-2">
-            <div className="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-gradient-to-br from-violet-600 to-violet-700 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-lg">
-              <FaArrowRight className="text-xs" />
-            </div>
-            <span className="text-[10px] font-bold text-slate-400 group-hover:text-violet-600 transition-colors">
-              Start
-            </span>
           </div>
         </div>
       </div>

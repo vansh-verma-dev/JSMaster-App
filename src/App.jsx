@@ -7,11 +7,10 @@ import JsDocsPage from "./pages/Jsdocspage";
 import TermsPage from "./pages/termsPage";
 import AccountPage from "./pages/AccountPage";
 import ProfilePage from "./pages/ProfilePage";
-
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage/>} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/project" element={<ProjectsPage />} />
       <Route path="/tasks" element={<TasksPage />} />
       <Route path="/termsPage" element={<TermsPage />} />
