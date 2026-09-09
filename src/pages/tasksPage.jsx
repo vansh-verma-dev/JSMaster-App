@@ -7,6 +7,12 @@ import {
   FaFilter,
   FaTimes,
   FaSlidersH,
+  FaArrowRight,
+  FaBook,
+  FaLightbulb,
+  FaCheckCircle,
+  FaStar,
+  FaFire,
 } from "react-icons/fa";
 
 import tasks from "../data/tasks";
@@ -16,16 +22,24 @@ import AdSpace from "../components/AdSpace";
 import BottomNavbar from "../components/bottomNavbar";
 import HeroSection from "../components/heroSection";
 
-const LEVELS = ["All", "Intermediate", "Hard", "Advanced"];
+const LEVELS = ["All", "Beginner", "Intermediate", "Hard", "Advanced"];
 
 const LEVEL_STYLES = {
-  Easy: "bg-emerald-50 text-emerald-600",
-  Intermediate: "bg-amber-50 text-amber-600",
-  Hard: "bg-orange-50 text-orange-600",
-  Advanced: "bg-red-50 text-red-600",
+  Beginner: "bg-emerald-50 text-emerald-600 border-emerald-200",
+  Intermediate: "bg-amber-50 text-amber-600 border-amber-200",
+  Hard: "bg-orange-50 text-orange-600 border-orange-200",
+  Advanced: "bg-red-50 text-red-600 border-red-200",
 };
 
-const levelBadgeClass = (level) => LEVEL_STYLES[level] ?? "bg-slate-50 text-slate-600";
+const LEVEL_DOT = {
+  Beginner: "bg-emerald-500",
+  Intermediate: "bg-amber-500",
+  Hard: "bg-orange-500",
+  Advanced: "bg-red-500",
+};
+
+const levelBadgeClass = (level) => LEVEL_STYLES[level] ?? "bg-slate-50 text-slate-600 border-slate-200";
+const levelDotClass = (level) => LEVEL_DOT[level] ?? "bg-slate-400";
 
 const SORT_OPTIONS = [
   { value: "default", label: "Default" },
@@ -33,9 +47,31 @@ const SORT_OPTIONS = [
   { value: "difficulty", label: "Difficulty" },
 ];
 
-const DIFFICULTY_ORDER = { Intermediate: 1, Hard: 2, Advanced: 3 };
+const DIFFICULTY_ORDER = { Beginner: 0, Intermediate: 1, Hard: 2, Advanced: 3 };
 
-// Small debounce hook so filtering large lists doesn't feel janky while typing
+// Category Icons
+const CATEGORY_ICONS = {
+  Variables: FaBook,
+  "Data Types": FaCode,
+  Operators: FaLightbulb,
+  "Control Flow": FaArrowRight,
+  Strings: FaCode,
+  Arrays: FaCheckCircle,
+  Objects: FaBook,
+  Functions: FaCode,
+  "ES6+": FaStar,
+  DOM: FaCode,
+  Events: FaLightbulb,
+  "Browser APIs": FaBook,
+  "Async JavaScript": FaArrowRight,
+  Promises: FaCheckCircle,
+  "Fetch API": FaCode,
+  LocalStorage: FaBook,
+  OOP: FaCode,
+  "Closures & Advanced Concepts": FaStar,
+  "Advanced Real-World Tasks": FaFire,
+};
+
 function useDebouncedValue(value, delay = 200) {
   const [debounced, setDebounced] = useState(value);
   useEffect(() => {
@@ -48,29 +84,27 @@ function useDebouncedValue(value, delay = 200) {
 function TasksPage() {
   const [searchInput, setSearchInput] = useState("");
   const search = useDebouncedValue(searchInput, 200);
-
   const [selectedLevel, setSelectedLevel] = useState("All");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("default");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const categories = useMemo(
-    () => ["All", ...new Set(tasks.map((task) => task.category))],
+    () => ["All", ...new Set(tasks.map((task) => task.category))].sort(),
     []
   );
 
-  // Tasks matching only the search term - base for computing facet counts
   const searchMatchedTasks = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return tasks;
     return tasks.filter(
       (task) =>
         task.title.toLowerCase().includes(q) ||
-        task.description.toLowerCase().includes(q)
+        task.description.toLowerCase().includes(q) ||
+        task.category.toLowerCase().includes(q)
     );
   }, [search]);
 
-  // Level counts respect the current category selection (and search)
   const levelCounts = useMemo(() => {
     const base =
       selectedCategory === "All"
@@ -83,7 +117,6 @@ function TasksPage() {
     }, {});
   }, [searchMatchedTasks, selectedCategory]);
 
-  // Category counts respect the current level selection (and search)
   const categoryCounts = useMemo(() => {
     const base =
       selectedLevel === "All"
@@ -114,6 +147,17 @@ function TasksPage() {
     return result;
   }, [searchMatchedTasks, selectedLevel, selectedCategory, sortBy]);
 
+  // Stats
+  const stats = useMemo(() => {
+    return {
+      total: tasks.length,
+      beginner: tasks.filter((t) => t.level === "Beginner").length,
+      intermediate: tasks.filter((t) => t.level === "Intermediate").length,
+      hard: tasks.filter((t) => t.level === "Hard").length,
+      advanced: tasks.filter((t) => t.level === "Advanced").length,
+    };
+  }, []);
+
   const hasActiveFilters =
     selectedLevel !== "All" || selectedCategory !== "All" || searchInput.trim() !== "";
 
@@ -130,10 +174,10 @@ function TasksPage() {
     <>
       <Navbar />
       <MobileTopBar />
-      <div className="min-h-[calc(100vh-68px)] bg-slate-50">
+      <div className="min-h-[calc(100vh-68px)] bg-gradient-to-b from-slate-50 via-slate-50 to-white">
         <div className="mx-auto flex w-full max-w-[1500px]">
           {/* DESKTOP SIDEBAR */}
-          <aside className="sticky top-[68px] hidden h-[calc(100vh-68px)] w-[260px] shrink-0 border-r border-slate-200 bg-white lg:block">
+          <aside className="sticky top-[68px] hidden h-[calc(100vh-68px)] w-[280px] shrink-0 border-r border-slate-200 bg-white lg:block overflow-y-auto">
             <FilterPanel
               levels={LEVELS}
               categories={categories}
@@ -152,16 +196,16 @@ function TasksPage() {
           {filtersOpen && (
             <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true">
               <div
-                className="absolute inset-0 bg-black/30"
+                className="absolute inset-0 bg-black/30 backdrop-blur-sm"
                 onClick={() => setFiltersOpen(false)}
               />
-              <div className="absolute left-0 top-0 h-full w-[85%] max-w-xs overflow-y-auto bg-white shadow-xl">
+              <div className="absolute left-0 top-0 h-full w-[85%] max-w-xs overflow-y-auto bg-white shadow-2xl">
                 <div className="flex items-center justify-between border-b border-slate-100 px-4 py-4">
                   <span className="text-sm font-bold text-slate-900">Filters</span>
                   <button
                     onClick={() => setFiltersOpen(false)}
                     aria-label="Close filters"
-                    className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100"
+                    className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100 transition"
                   >
                     <FaTimes />
                   </button>
@@ -185,7 +229,7 @@ function TasksPage() {
                 <div className="px-4 pb-6">
                   <button
                     onClick={() => setFiltersOpen(false)}
-                    className="mt-4 w-full rounded-xl bg-violet-600 py-3 text-sm font-bold text-white hover:bg-violet-700"
+                    className="mt-4 w-full rounded-xl bg-gradient-to-r from-violet-600 to-violet-700 py-3 text-sm font-bold text-white hover:shadow-lg transition-all"
                   >
                     Show {filteredTasks.length} Tasks
                   </button>
@@ -195,45 +239,45 @@ function TasksPage() {
           )}
 
           <main className="min-w-0 flex-1">
-            <div className="px-4 py-6 sm:px-6 lg:px-10 lg:py-9">
-              <div className="mx-auto max-w-5xl">
-                <div className="mb-6">
+            <div className="px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+              <div className="mx-auto max-w-6xl">
+                {/* HEADER SECTION */}
+                <div className="mb-10">
                   <HeroSection />
-                </div>
+                  
+                  <div className="mt-8">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="rounded-full bg-gradient-to-r from-violet-100 to-violet-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-violet-700 border border-violet-200">
+                        📚 Practice Tasks
+                      </span>
+                      <span className="text-xs text-slate-400 font-medium">{tasks.length} Total</span>
+                    </div>
 
-                {/* PAGE HEADER */}
-                <div className="mb-7">
-                  <div className="flex items-center gap-2">
-                    <span className="rounded-full bg-violet-100 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-violet-700">
-                      Practice
-                    </span>
-                    <span className="text-xs text-slate-400">{tasks.length} Tasks</span>
+                    <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-2">
+                      Master JavaScript
+                    </h1>
+
+                    <p className="max-w-3xl text-base leading-8 text-slate-600">
+                      Learn JavaScript through practical problems. From beginner basics to advanced patterns, 
+                      build real skills with {stats.intermediate + stats.hard + stats.advanced} intermediate to advanced challenges.
+                    </p>
                   </div>
-
-                  <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-                    JavaScript Practice Tasks
-                  </h1>
-
-                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-                    Challenge yourself with real JavaScript problems covering arrays, objects, DOM,
-                    APIs, async JavaScript and more.
-                  </p>
                 </div>
 
-                {/* SEARCH + SORT + MOBILE FILTER BUTTON */}
-                <div className="mb-6 flex flex-col gap-3 sm:flex-row">
+               
+
+                {/* SEARCH + SORT + FILTER */}
+                <div className="mb-7 flex flex-col gap-3 sm:flex-row">
                   <div className="relative flex-1">
                     <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-slate-400" />
-
                     <input
                       type="text"
                       value={searchInput}
                       onChange={(e) => setSearchInput(e.target.value)}
-                      placeholder="Search tasks..."
+                      placeholder="Search tasks, categories..."
                       aria-label="Search tasks"
-                      className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-10 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-4 focus:ring-violet-50"
+                      className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-10 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-4 focus:ring-violet-100 hover:border-slate-300"
                     />
-
                     {searchInput && (
                       <button
                         onClick={() => setSearchInput("")}
@@ -245,29 +289,27 @@ function TasksPage() {
                     )}
                   </div>
 
-                  {/* Sort */}
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                     aria-label="Sort tasks"
-                    className="h-12 rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-600 outline-none focus:border-violet-400"
+                    className="h-12 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-600 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 hover:border-slate-300 transition"
                   >
                     {SORT_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
-                        Sort: {opt.label}
+                        {opt.label}
                       </option>
                     ))}
                   </select>
 
-                  {/* Mobile: open filter drawer */}
                   <button
                     onClick={() => setFiltersOpen(true)}
-                    className="relative flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-600 hover:bg-slate-50 lg:hidden"
+                    className="relative flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition lg:hidden"
                   >
                     <FaSlidersH className="text-xs" />
                     Filters
                     {activeFilterCount > 0 && (
-                      <span className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-violet-600 text-[10px] font-bold text-white">
+                      <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-violet-600 to-violet-500 text-[11px] font-bold text-white shadow-lg">
                         {activeFilterCount}
                       </span>
                     )}
@@ -276,13 +318,13 @@ function TasksPage() {
 
                 {/* ACTIVE FILTERS */}
                 {hasActiveFilters && (
-                  <div className="mb-5 flex flex-wrap items-center gap-2">
-                    <FaFilter className="text-xs text-slate-400" />
+                  <div className="mb-6 flex flex-wrap items-center gap-2 p-4 bg-violet-50 border border-violet-200 rounded-xl">
+                    <FaFilter className="text-xs text-violet-600" />
 
                     {searchInput.trim() !== "" && (
                       <button
                         onClick={() => setSearchInput("")}
-                        className="rounded-lg bg-violet-100 px-3 py-1.5 text-xs font-semibold text-violet-700"
+                        className="rounded-lg bg-white border border-violet-300 px-3 py-1.5 text-xs font-semibold text-violet-700 hover:bg-violet-100 transition"
                       >
                         "{searchInput.trim()}" ×
                       </button>
@@ -291,7 +333,7 @@ function TasksPage() {
                     {selectedLevel !== "All" && (
                       <button
                         onClick={() => setSelectedLevel("All")}
-                        className="rounded-lg bg-violet-100 px-3 py-1.5 text-xs font-semibold text-violet-700"
+                        className="rounded-lg bg-white border border-violet-300 px-3 py-1.5 text-xs font-semibold text-violet-700 hover:bg-violet-100 transition"
                       >
                         {selectedLevel} ×
                       </button>
@@ -300,7 +342,7 @@ function TasksPage() {
                     {selectedCategory !== "All" && (
                       <button
                         onClick={() => setSelectedCategory("All")}
-                        className="rounded-lg bg-violet-100 px-3 py-1.5 text-xs font-semibold text-violet-700"
+                        className="rounded-lg bg-white border border-violet-300 px-3 py-1.5 text-xs font-semibold text-violet-700 hover:bg-violet-100 transition"
                       >
                         {selectedCategory} ×
                       </button>
@@ -308,7 +350,7 @@ function TasksPage() {
 
                     <button
                       onClick={clearAll}
-                      className="text-xs font-semibold text-slate-400 underline-offset-2 hover:text-slate-600 hover:underline"
+                      className="text-xs font-semibold text-violet-600 underline-offset-2 hover:text-violet-700 hover:underline ml-auto"
                     >
                       Clear all
                     </button>
@@ -316,89 +358,40 @@ function TasksPage() {
                 )}
 
                 {/* TASK COUNT */}
-                <div className="mb-4 flex items-center justify-between">
-                  <p className="text-sm font-semibold text-slate-700">
-                    {filteredTasks.length} {filteredTasks.length === 1 ? "Task" : "Tasks"}
+                <div className="mb-6 flex items-center justify-between">
+                  <p className="text-sm font-bold text-slate-800">
+                    {filteredTasks.length} {filteredTasks.length === 1 ? "Task" : "Tasks"} Found
                   </p>
-                  <p className="text-xs text-slate-400">Select a task to start</p>
+                  {filteredTasks.length > 0 && (
+                    <p className="text-xs text-slate-500">Click any task to begin →</p>
+                  )}
                 </div>
 
                 {/* TASK LIST */}
-                <div className="space-y-3">
+                <div className="grid gap-4 sm:gap-5">
                   {filteredTasks.map((task) => (
-                    <Link
-                      key={task.id}
-                      to={`/tasks/${task.id}`}
-                      className="group block rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-violet-100 sm:p-6"
-                    >
-                      <div className="flex gap-4">
-                        <div className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-xs font-bold text-slate-500 sm:flex">
-                          {String(task.id).padStart(2, "0")}
-                        </div>
-
-                        <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="rounded-md bg-violet-50 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-violet-700">
-                              {task.category}
-                            </span>
-
-                            <span
-                              className={`rounded-md px-2 py-1 text-[10px] font-bold ${levelBadgeClass(
-                                task.level
-                              )}`}
-                            >
-                              {task.level}
-                            </span>
-                          </div>
-
-                          <h2 className="mt-3 text-base font-bold text-slate-900 transition-colors group-hover:text-violet-700 sm:text-lg">
-                            {task.title}
-                          </h2>
-
-                          <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-slate-500">
-                            {task.description}
-                          </p>
-
-                          <div className="mt-4 flex items-center justify-between">
-                            <div className="flex items-center gap-2 text-xs text-slate-400">
-                              <FaCode className="text-[10px]" />
-                              JavaScript
-                            </div>
-
-                            <span className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-3.5 py-2 text-xs font-bold text-white transition group-hover:bg-violet-600">
-                              Start Task
-                              <FaChevronRight className="text-[9px] transition-transform duration-200 group-hover:translate-x-0.5" />
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
+                    <TaskCard key={task.id} task={task} />
                   ))}
 
                   {/* EMPTY STATE */}
                   {filteredTasks.length === 0 && (
-                    <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
-                        <FaSearch />
-                      </div>
-
-                      <h3 className="mt-4 font-bold text-slate-800">No tasks found</h3>
-
-                      <p className="mt-1 text-sm text-slate-400">
-                        Try another search or remove the filters.
+                    <div className="rounded-2xl border-2 border-dashed border-slate-300 bg-gradient-to-br from-slate-50 to-slate-100 px-6 py-20 text-center">
+                      <div className="mx-auto mb-4 text-5xl">🔍</div>
+                      <h3 className="text-xl font-bold text-slate-800">No tasks found</h3>
+                      <p className="mt-2 text-sm text-slate-500 max-w-sm mx-auto">
+                        Try searching with different keywords or adjust your filters.
                       </p>
-
                       <button
                         onClick={clearAll}
-                        className="mt-4 rounded-lg bg-violet-600 px-4 py-2 text-xs font-bold text-white hover:bg-violet-700"
+                        className="mt-6 rounded-lg bg-gradient-to-r from-violet-600 to-violet-700 px-6 py-2.5 text-sm font-bold text-white hover:shadow-lg transition-all"
                       >
-                        Clear Filters
+                        Reset Filters
                       </button>
                     </div>
                   )}
                 </div>
 
-                <div className="mt-7">
+                <div className="mt-12">
                   <AdSpace />
                 </div>
               </div>
@@ -411,7 +404,103 @@ function TasksPage() {
   );
 }
 
-// Shared between desktop sidebar + mobile drawer so filter UI never drifts apart
+// TASK CARD COMPONENT - Better visual hierarchy
+function TaskCard({ task }) {
+  const IconComponent = CATEGORY_ICONS[task.category] || FaCode;
+
+  return (
+    <Link
+      to={`/tasks/${task.id}`}
+      className="group relative block rounded-2xl border border-slate-200 bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-violet-300 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
+    >
+      {/* Gradient Overlay on Hover */}
+      <div className="absolute inset-0 bg-gradient-to-r from-violet-600/0 to-violet-600/0 group-hover:from-violet-600/5 group-hover:to-violet-600/10 transition-all duration-300 pointer-events-none" />
+
+      <div className="relative p-5 sm:p-6">
+        <div className="flex gap-4">
+          {/* Left: ID + Category Icon */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 text-lg font-bold text-slate-400 border border-slate-200 group-hover:border-violet-200 group-hover:bg-violet-50 transition-all">
+              {String(task.id).padStart(2, "0")}
+            </div>
+            <IconComponent className="text-xs text-slate-400 group-hover:text-violet-600 transition-colors" />
+          </div>
+
+          {/* Center: Content */}
+          <div className="min-w-0 flex-1">
+            {/* Badges */}
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <span className="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-slate-600 border border-slate-200">
+                <span className={`w-1.5 h-1.5 rounded-full ${levelDotClass(task.level)}`} />
+                {task.level}
+              </span>
+              <span className="rounded-lg bg-violet-50 px-2.5 py-1 text-[10px] font-semibold text-violet-700 border border-violet-200">
+                {task.category}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-violet-700 transition-colors leading-snug mb-1.5">
+              {task.title}
+            </h2>
+
+            {/* Description */}
+            <p className="line-clamp-2 text-sm leading-6 text-slate-600 mb-3">
+              {task.description}
+            </p>
+
+            {/* Meta Info */}
+            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500">
+              <div className="flex items-center gap-1.5">
+                <FaCode className="text-[10px]" />
+                <span className="font-medium">JavaScript</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <FaCheckCircle className="text-[10px]" />
+                <span className="font-medium">{task.requirements.length} Steps</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <FaLightbulb className="text-[10px]" />
+                <span className="font-medium">With Hint</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: CTA Button */}
+          <div className="flex flex-col items-end justify-between gap-2">
+            <div className="inline-flex items-center justify-center h-10 w-10 rounded-lg bg-gradient-to-br from-violet-600 to-violet-700 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:shadow-lg">
+              <FaArrowRight className="text-xs" />
+            </div>
+            <span className="text-[10px] font-bold text-slate-400 group-hover:text-violet-600 transition-colors">
+              Start
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+// STAT CARD
+function StatCard({ icon, label, value, color }) {
+  const colorClasses = {
+    slate: "bg-slate-50 border-slate-200 text-slate-700",
+    emerald: "bg-emerald-50 border-emerald-200 text-emerald-700",
+    amber: "bg-amber-50 border-amber-200 text-amber-700",
+    orange: "bg-orange-50 border-orange-200 text-orange-700",
+    red: "bg-red-50 border-red-200 text-red-700",
+  };
+
+  return (
+    <div className={`rounded-lg border-2 p-3 sm:p-4 text-center transition-all hover:shadow-md ${colorClasses[color]}`}>
+      <div className="text-xl sm:text-2xl mb-1">{icon}</div>
+      <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wide opacity-75">{label}</p>
+      <p className="text-lg sm:text-2xl font-extrabold mt-1">{value}</p>
+    </div>
+  );
+}
+
+// FILTER PANEL
 function FilterPanel({
   levels,
   categories,
@@ -425,78 +514,72 @@ function FilterPanel({
   clearAll,
 }) {
   return (
-    <>
-      {/* Difficulty */}
-      <div className="px-4 pt-5">
-        <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+    <div className="p-4">
+      {/* Difficulty Section */}
+      <div className="mb-6">
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">
           Difficulty
         </p>
-
-        {levels.map((level) => (
-          <button
-            key={level}
-            onClick={() => setSelectedLevel(level)}
-            aria-pressed={selectedLevel === level}
-            disabled={levelCounts[level] === 0 && level !== "All"}
-            className={`mb-1 flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold transition ${
-              selectedLevel === level
-                ? "bg-violet-50 text-violet-700"
-                : levelCounts[level] === 0
-                ? "cursor-not-allowed text-slate-300"
-                : "text-slate-500 hover:bg-slate-50"
-            }`}
-          >
-            <span>{level}</span>
-            <span
-              className={`text-[10px] ${
-                selectedLevel === level ? "text-violet-400" : "text-slate-400"
+        <div className="space-y-1">
+          {levels.map((level) => (
+            <button
+              key={level}
+              onClick={() => setSelectedLevel(level)}
+              aria-pressed={selectedLevel === level}
+              disabled={levelCounts[level] === 0 && level !== "All"}
+              className={`w-full flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold transition ${
+                selectedLevel === level
+                  ? "bg-gradient-to-r from-violet-50 to-violet-100 text-violet-700 border border-violet-300"
+                  : levelCounts[level] === 0
+                  ? "cursor-not-allowed text-slate-300"
+                  : "text-slate-600 hover:bg-slate-50 border border-transparent hover:border-slate-200"
               }`}
             >
-              {levelCounts[level] ?? 0}
-            </span>
-          </button>
-        ))}
+              <span>{level}</span>
+              <span className={`text-[10px] font-bold ${selectedLevel === level ? "text-violet-600" : "text-slate-400"}`}>
+                {levelCounts[level] ?? 0}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Categories */}
-      <div className="mt-5 px-4">
-        <p className="mb-2 px-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-          Categories
+      {/* Categories Section */}
+      <div className="mb-6">
+        <p className="mb-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+         Categories
         </p>
-
-        <div className="max-h-[40vh] space-y-1 overflow-y-auto pr-1">
+        <div className="max-h-[50vh] space-y-1 overflow-y-auto">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
               aria-pressed={selectedCategory === category}
               disabled={categoryCounts[category] === 0}
-              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm font-medium transition ${
+              className={`w-full flex items-center justify-between rounded-lg px-3 py-2 text-left text-sm font-medium transition ${
                 selectedCategory === category
-                  ? "bg-violet-50 text-violet-700"
+                  ? "bg-gradient-to-r from-violet-50 to-violet-100 text-violet-700 border border-violet-300"
                   : categoryCounts[category] === 0
                   ? "cursor-not-allowed text-slate-300"
-                  : "text-slate-500 hover:bg-slate-50"
+                  : "text-slate-600 hover:bg-slate-50 border border-transparent hover:border-slate-200"
               }`}
             >
-              <span>{category}</span>
-              <span className="text-[10px] text-slate-400">{categoryCounts[category] ?? 0}</span>
+              <span className="truncate">{category}</span>
+              <span className="text-[10px] text-slate-400 ml-2 shrink-0">{categoryCounts[category] ?? 0}</span>
             </button>
           ))}
         </div>
       </div>
 
       {hasActiveFilters && (
-        <div className="mt-5 px-4 pb-5">
-          <button
-            onClick={clearAll}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-500 transition hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700"
-          >
-            Reset filters
-          </button>
-        </div>
+        <button
+          onClick={clearAll}
+          className="w-full rounded-lg border-2 border-violet-200 px-3 py-2.5 text-xs font-bold text-violet-700 transition hover:bg-violet-50 hover:border-violet-300 bg-white"
+        >
+          ✕ Reset Filters
+        </button>
       )}
-    </>
+    </div>
   );
 }
 
